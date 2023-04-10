@@ -70,12 +70,12 @@
 3. 클래스 다이어그램 작성(클래스 및 변수 통일)
 
 ### 역할분담
-구빛나 : 프로젝트 아이디어 구상, 방향성 제시
-이상욱 : md 작성
-조경훈 : 클래스 벤다이어그램 작성, git 생성
+1. 구빛나 : 프로젝트 아이디어 구상, 방향성 제시
+2. 이상욱 : md 작성
+3. 조경훈 : 클래스 벤다이어그램 작성, git 생성
 
 
 
 ## 참고사항!
-https://yeyak.seoul.go.kr/web/main.do
-https://yeyak.seoul.go.kr/web/search/selectPageListDetailSearchImg.do?code=T100
+1. https://yeyak.seoul.go.kr/web/main.do
+2. https://yeyak.seoul.go.kr/web/search/selectPageListDetailSearchImg.do?code=T100
