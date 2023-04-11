@@ -1,8 +1,9 @@
 package userSys;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class UserInfo {
+public class UserInfo implements Serializable {
     private String userId; // 로그인 아이디
     private String userPwd; // 로그인 비밀번호
     private  String userName; // 사용자 이름

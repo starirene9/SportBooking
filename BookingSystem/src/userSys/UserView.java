@@ -1,6 +1,6 @@
 package userSys;
 
-import java.util.Scanner;
+import java.text.SimpleDateFormat;
 
 import static userSys.Utility.*;
 
@@ -67,17 +67,14 @@ public class UserView {
 
         //생년월일 입력
         String userAge;
+
         while (true) {
-            userAge = input("생년월일(8자리) : ");
+            userAge = input("생년월일(6자리) : ");
             // 올바른 값 확인 && 글자수 제한
-            if (isIntNum(userAge) && stringLength(userAge, 8)) {
+            if (checkDate(userAge)) {
                 break;
-            }
-        }
-        while(true){
-            if(checkAge(userAge)){
-                System.out.println("굿");
-                break;
+            } else {
+                System.out.println("올바른값을 입력해주세요(6자리)");
             }
         }
 
@@ -137,51 +134,18 @@ public class UserView {
      *
      * @return true 알맞은 생년월일
      * false 부정확한 생년월일
-     * @param1 정수로 변환될수있는 String
+     * @param1 정수로 변환될수있는 6자리 String
      */
 
-    boolean checkAge(String age) {
-
-        int month = Integer.parseInt(age.substring(4, 6));
-        int day = Integer.parseInt(age.substring(6, 8));
-        if (month > 0 && month < 12) {
-            switch (month) {
-                case 1, 3, 5, 7, 8, 10, 12:
-                    if (day <= 31) {
-                        System.out.println("올바른 값");
-                        return true;
-                    }
-                case 4, 6, 9, 11:
-                    if (day <= 30) {
-                        System.out.println("올바른 값");
-                        return true;
-                    }
-                case 2:
-                    if (checkYear(age) == "윤년" && day <= 29) {
-                        System.out.println("올바른 값");
-                        return true;
-                    } else if (checkYear(age) == "평년" && day <= 28) {
-                        System.out.println("올바른 값");
-                        return true;
-                    } else {
-                        return false;
-                    }
-                default:
-                    return false;
-
-            }
+    public static boolean checkDate(String checkDate) {
+        try {
+            SimpleDateFormat dateFormatParser = new SimpleDateFormat("yyMMdd");
+            dateFormatParser.setLenient(false);
+            dateFormatParser.parse(checkDate);
+            return true;
+        } catch (Exception e) {
+            return false;
         }
-        return false;
-    }
-
-    String checkYear(String age) {
-        int year = Integer.parseInt(age.substring(0, 4));
-        if (year % 4 == 0 && (year % 4) != 0) {
-            return "윤년";
-        } else if (year % 4 == 0) {
-            return "윤년";
-        } else
-            return "평년";
     }
 
 
