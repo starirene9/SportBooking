@@ -13,6 +13,11 @@ public class UserInfo {
     public UserInfo() {
     }
 
+    public UserInfo(String userId, String userPwd) {
+        this.userId = userId;
+        this.userPwd = userPwd;
+    }
+
     public UserInfo(String userId, String userPwd, String userName, String userArea, String userAge, String userPhoneNum) {
         this.userId = userId;
         this.userPwd = userPwd;

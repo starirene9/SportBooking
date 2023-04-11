@@ -49,7 +49,9 @@ public class UserView {
 
     private void loginStart() { // 로그인 화면 출력하기
         String inputId = input("# 아이디 입력 : ");
-        repository.loginIdCheck(inputId);
+        String inputPwd = input("# 비밀번호 입력 : ");
+        String s = repository.loginValidate(inputId, inputPwd);
+
     }
 
     private void joinStart() { // 회원가입 화면 출력하기
