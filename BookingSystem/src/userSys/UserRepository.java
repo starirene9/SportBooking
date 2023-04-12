@@ -47,7 +47,7 @@ public class UserRepository implements Serializable {
 
         try (FileOutputStream fos
                      = new FileOutputStream(
-                "D:\\project2\\BookingSystem\\src\\saveFile" + "/userInfo.sav")) {
+                "C:\\Study\\SportBooking2\\BookingSystem\\src\\saveFile" + "/userInfo.sav")) {
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(userInfo);
             System.out.println("save 성공");
@@ -59,7 +59,7 @@ public class UserRepository implements Serializable {
     public static void loadSaveFile() {
         try (FileInputStream fis
                      = new FileInputStream(
-                "D:\\project2\\BookingSystem\\src\\saveFile" + "/userInfo.sav")) {
+                "C:\\Study\\SportBooking2\\BookingSystem\\src\\saveFile" + "/userInfo.sav")) {
 
             // 객체를 불러올 보조스트림
             ObjectInputStream ois = new ObjectInputStream(fis);
@@ -75,6 +75,7 @@ public class UserRepository implements Serializable {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
     }
 
 

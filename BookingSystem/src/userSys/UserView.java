@@ -7,17 +7,16 @@ import static userSys.Utility.*;
 
 public class UserView {
     public static UserView uv;
-    UserInfo userInfo;
+    static UserInfo userInfo;
     private static UserRepository urp;
 
 
     static {
-        uv = new UserView();
         urp = new UserRepository();
 
     }
 
-    void start() {
+    public static void start() {
 
         joinMemberShip();
         urp.showList();
@@ -25,7 +24,7 @@ public class UserView {
         urp.loadSaveFile();
     }
 
-    private void joinMemberShip() {
+    private static void joinMemberShip() {
         System.out.println("==========[ 회 원 가 입 ]==========");
 
         // 아이디 입력
@@ -105,7 +104,7 @@ public class UserView {
      * @return 글자수가 제한글자수를 초과할시 false;
      * 글자수가 제한글자수보다 작을시 true;
      */
-    boolean stringLength(String s, int length) {
+    static boolean stringLength(String s, int length) {
         if (s.length() > length) {
             System.out.printf("%d 자리 이하로 입력해주세요\n", length);
             return false;
@@ -121,7 +120,7 @@ public class UserView {
      * @return true: 올바른 번호 형태
      * false: 틀린 번호 형태
      */
-    public boolean checkPhoneNum(String userPhoneNum) {
+    public static boolean checkPhoneNum(String userPhoneNum) {
         String pattern2 = "^\\d{3}-\\d{3,4}-\\d{4}$";
         if (Pattern.matches(pattern2, userPhoneNum)) {
             return true;
