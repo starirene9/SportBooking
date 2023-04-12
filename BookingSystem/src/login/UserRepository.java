@@ -1,5 +1,6 @@
 package login;
 
+import adminPage.AdminView;
 import mypage.MyPageView;
 import userSys.UserInfo;
 
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 public class UserRepository {
     private static List<UserInfo> info;
     UserView uv;
+    public AdminView adminView;
 
     static {
         info = new ArrayList<>();
@@ -31,6 +33,7 @@ public class UserRepository {
             List<userSys.UserInfo> userInfo = (List<UserInfo>) ois.readObject();
             for (UserInfo userObj : userInfo) {
                 info.add(userObj);
+
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -43,13 +46,15 @@ public class UserRepository {
 
 
     public void loginValidate(String inputId, String inputPwd) {
+
         UserInfo userInfo;
         try {
             userInfo = info.stream().filter(obj -> obj.getUserId().equals(inputId)).collect(Collectors.toList()).get(0);
             uv = new UserView();
             if (userInfo.getUserId().equals("admin") && userInfo.getUserPwd().equals("admin")) {
                 System.out.println("관리자 계정으로 로그인 하였습니다.");
-
+                adminView=new AdminView();
+                adminView.adminMenu();
             } else if (userInfo.getUserId().equals(inputId) && userInfo.getUserPwd().equals(inputPwd)) {
                 System.out.println("로그인이 완료되었습니다2.");
                 userInfo = new UserInfo(userInfo.getUserId(), userInfo.getUserPwd(), userInfo.getUserName(), userInfo.getUserArea(), userInfo.getUserAge(), userInfo.getUserPhoneNum());
@@ -58,6 +63,7 @@ public class UserRepository {
                 mv.viewUser();
                 MyPageView mypage = new MyPageView();
                 mypage.start();
+
 
             } else {
                 System.out.println("아이디 비밀번호를 다시 입력하세요");

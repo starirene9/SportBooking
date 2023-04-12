@@ -48,6 +48,7 @@ public class UserRepository implements Serializable {
         try (FileOutputStream fos
                      = new FileOutputStream(
                 "C:\\Study\\SportBooking2\\BookingSystem\\src\\saveFile" + "/userInfo.sav")) {
+
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(userInfo);
 //            System.out.println("save 성공");

@@ -1,5 +1,7 @@
 package sportsFacArea;
 
+import userSys.UserInfo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,5 +42,7 @@ public class SportAreaRepository {
     public void setAreaListIndex(int areaListIndex) {
         this.areaListIndex = areaListIndex;
     }
+
+
 
 }

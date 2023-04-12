@@ -36,7 +36,7 @@ public class UserView {
             if (urp.isDuplicate(userId)) {
                 System.out.println("중복된 아이디입니다. 다시 입력해주세요");
             } else {
-                if (!userId.equals("")&&isAlphaNumeric(userId)) {
+                if (!userId.equals("") && isAlphaNumeric(userId)) {
                     System.out.println("입력 가능한 아이디 입니다.");
                     break;
                 } else {
@@ -48,9 +48,9 @@ public class UserView {
         // 비밀번호 입력
         String userPwd;
         while (true) {
-            userPwd = input("# 비밀번호 : ");
-            // 비밀번호 글자수 10이하로 제한
-            if (stringLength(userPwd, 10)) {
+            userPwd = input("# 비밀번호(최대 13자) : ");
+            // 비밀번호 글자수 13이하로 제한
+            if (stringLength(userPwd, 13)) {
                 break;
             } else {
                 System.out.println("비밀번호가 너무 깁니다. 10이하로 적어주세요");
@@ -98,18 +98,19 @@ public class UserView {
 
 
         // 객체생성
-        userInfo = new UserInfo(userId, userPwd, userName, userArea, userPhoneNum, userAge);
+        userInfo = new UserInfo(userId, userPwd, userName, userArea, userAge, userPhoneNum);
 
         // UserRepository 에저장
         urp.register(userInfo);
 
     }
 
-    /** 아이디에 영어와 숫자로만 제한하는 함수
+    /**
+     * 아이디에 영어와 숫자로만 제한하는 함수
      *
      * @param inputId 입력하는 아이디
      * @return true: 영어와 숫자
-     *         false: 영어와 숫자 이의의 값
+     * false: 영어와 숫자 이의의 값
      */
 
     public static boolean isAlphaNumeric(String inputId) {
@@ -171,7 +172,6 @@ public class UserView {
      * false 부정확한 생년월일
      * @param1 정수로 변환될수있는 6자리 String
      */
-
     public static boolean checkDate(String checkDate) {
         try {
             SimpleDateFormat dateFormatParser = new SimpleDateFormat("yyMMdd");
