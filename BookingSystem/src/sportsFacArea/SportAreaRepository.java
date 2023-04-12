@@ -38,6 +38,9 @@ public class SportAreaRepository {
             System.out.printf("%d. %s\n",i+1,areaList.get(i));
         }
     }
+    public List<String> callListArea(){
+        return areaList;
+    }
 
 
 }

@@ -2,6 +2,10 @@ package sportsFacArea;
 
 import login.UserInfo;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Map;
 
 import static login.Utility.input;
@@ -12,12 +16,14 @@ public class BookingView {
     static SportBooking booking;
     static DateList date;
     static UserInfo info;
+    static SelectedReserv reserv;
 
     static {
         repository = new SportAreaRepository();
         booking = new SportBooking();
         date = new DateList();
         info = new UserInfo();
+        reserv = new SelectedReserv();
     }
 
     public void areaStart() { // 지역 정하기
@@ -26,6 +32,7 @@ public class BookingView {
             try {
                 int areaNum = Integer.parseInt(input("\n# 번호로 입력하세요>> "));
                 repository.setAreaListIndex(areaNum);
+                reserv.setUserPlace(repository.callListArea().get(areaNum-1));
             } catch (NumberFormatException e) {
                 System.out.println("잘못된 입력입니다");
                 continue;
@@ -39,15 +46,17 @@ public class BookingView {
         System.out.println("1. 축구장");
         System.out.println("2. 농구장");
         System.out.println("3. 수영장");
-
         String sportNum = input("\n# 예약할 구장 선택하기>> ");
         switch (sportNum) {
             case "1":
+                reserv.setUserSport("축구장");
                 bookingFac(); // 예약 날짜 정하기
                 break;
             case "2":
+                reserv.setUserSport("농구장");
                 break;
             case "3":
+                reserv.setUserSport("수영장");
                 break;
             default:
                 System.out.println("잘못된 입력입니다");
@@ -67,7 +76,14 @@ public class BookingView {
         boolean isParking = parkCoupon();
 
         booking = new SportBooking(inputDay, inputTime, isRent, isParking);
+        reserv.setUserDate(inputDay);
+        reserv.setUserTimeIndex(inputTime);
+        reserv.setRent(isRent);
+        reserv.setParking(isParking);
         reservationInfo();
+        reserv.setUserTime(date.callMap().get(booking.getBookingDay()).dateList.get(booking.getTimeIndex()-1));
+        reserv.setUserTotal(100000);
+
 
         confirmRes();
 
@@ -78,6 +94,7 @@ public class BookingView {
         String inputRes = input("예약 하시겠습니까? [y/n]");
         switch (inputRes.toUpperCase().charAt(0)){
             case 'Y':
+                makeSaveFile();
                 break;
             case 'N':
                 break;
@@ -86,6 +103,19 @@ public class BookingView {
                 confirmRes();
         }
 
+    }
+
+    private void makeSaveFile() {
+        try (FileOutputStream fos
+                     = new FileOutputStream(
+                "D:\\SportBooking\\BookingSystem\\src\\saveFile" + "/reservationInfo.sav")) {
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(reserv);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }catch (RuntimeException e){
+            System.out.println("오류");
+        }
     }
 
     public void reservationInfo() {
