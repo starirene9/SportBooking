@@ -50,6 +50,8 @@ public class UserRepository {
 
             } else if (userInfo.getUserId().equals(inputId) && userInfo.getUserPwd().equals(inputPwd)) {
                 System.out.println("로그인이 완료되었습니다2.");
+                mypage.userMypageView.loginInfo(uerInfo);
+
             } else {
                 System.out.println("아이디 비밀번호를 다시 입력하세요");
                 uv.loginStart();
