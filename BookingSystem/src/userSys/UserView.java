@@ -1,6 +1,7 @@
 package userSys;
 
 import java.text.SimpleDateFormat;
+import java.util.regex.Pattern;
 
 import static userSys.Utility.*;
 
@@ -58,9 +59,9 @@ public class UserView {
         // 전화번호 입력
         String userPhoneNum;
         while (true) {
-            userPhoneNum = input("# 핸드폰 번호 : ");
-            // 올바른 값 확인 && 글자수 제한
-            if (isIntNum(userPhoneNum) && stringLength(userPhoneNum, 11)) {
+            userPhoneNum = input("# 핸드폰 번호(-포함) : ");
+            // 올바른 값 확인
+            if (checkPhoneNum(userPhoneNum)) {
                 break;
             }
         }
@@ -90,7 +91,7 @@ public class UserView {
     /**
      * String 을 int 로 치환하는 함수
      *
-     * @param userAge 확인하고싶은 String값
+     * @param userAge 확인하고싶은 String 변수
      * @return true 모두 숫자이다.
      * false 숫자로 바꿀수 없는 값이 있다.
      */
@@ -130,9 +131,26 @@ public class UserView {
     }
 
     /**
+     * 올바른 전화번호 인지 검사하는 기능
+     * @param userPhoneNum 검사하고 싶은 핸드폰 번호
+     * @return true: 올바른 번호 형태
+     *         false: 틀린 번호 형태
+     */
+    public boolean checkPhoneNum(String userPhoneNum) {
+        String pattern2 = "^\\d{3}-\\d{3,4}-\\d{4}$";
+        if (Pattern.matches(pattern2, userPhoneNum)) {
+            return true;
+        } else {
+            System.out.println("올바른 휴대전화 번호를 입력해주세요. ");
+            return false;
+        }
+    }
+
+
+    /**
      * 올바른 생년월일 인지 검사하는 기능
      *
-     * @param age 정수로 변환될수있는 String
+     * @param checkDate 정수로 변환될수있는 String
      * @return true 알맞은 생년월일
      * false 부정확한 생년월일
      * @param1 정수로 변환될수있는 6자리 String

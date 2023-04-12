@@ -23,9 +23,8 @@ public class UserRepository implements Serializable {
     }
 
     /**
-     * @param1 회원가입시 입력한 아이디
+     * @param userId 회원가입시 입력한 아이디
      * @return true : 중복, false: 중복되지않는다.
-     * @param1 회원가입시 입력한 아이디
      */
     public boolean isDuplicate(String userId) {
         for (UserInfo info : userInfo) {
@@ -41,25 +40,26 @@ public class UserRepository implements Serializable {
             System.out.println(info);
         }
     }
-    /** save파일 생성
-     *
-     */
-    public static void makeSaveFile(){
 
-      try(FileOutputStream fos
-                  = new FileOutputStream(
-              "C:\\Study\\SportBooking2\\BookingSystem\\src\\saveFile"+ "/snack.sav"))
-      {   ObjectOutputStream oos = new ObjectOutputStream(fos);
-          oos.writeObject(userInfo);
-          System.out.println("save 성공");
-      } catch (IOException e) {
-          throw new RuntimeException(e);
-      }
+
+    // userInfo save 파일 생성 함수
+    public static void makeSaveFile() {
+
+        try (FileOutputStream fos
+                     = new FileOutputStream(
+                "D:\\project2\\BookingSystem\\src\\saveFile" + "/userInfo.sav")) {
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(userInfo);
+            System.out.println("save 성공");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
-    public static void loadSaveFile(){
+    // userInfo load 함수
+    public static void loadSaveFile() {
         try (FileInputStream fis
                      = new FileInputStream(
-                "C:\\Study\\SportBooking2\\BookingSystem\\src\\saveFile"+ "/snack.sav")) {
+                "D:\\project2\\BookingSystem\\src\\saveFile" + "/userInfo.sav")) {
 
             // 객체를 불러올 보조스트림
             ObjectInputStream ois = new ObjectInputStream(fis);
@@ -76,8 +76,6 @@ public class UserRepository implements Serializable {
             e.printStackTrace();
         }
     }
-
-
 
 
 }
