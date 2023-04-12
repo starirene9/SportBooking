@@ -74,8 +74,8 @@ public class UserView {
                 break;
             }
         }
-        while(true){
-            if(checkAge(userAge)){
+        while (true) {
+            if (checkAge(userAge)) {
                 System.out.println("굿");
                 break;
             }
@@ -93,9 +93,9 @@ public class UserView {
     /**
      * String 을 int 로 치환하는 함수
      *
+     * @param userAge 확인하고싶은 String값
      * @return true 모두 숫자이다.
-     * flase 숫자로 바꿀수 없는 값이 있다.
-     * @param1 확인하고싶은 String값
+     * false 숫자로 바꿀수 없는 값이 있다.
      */
     boolean isIntNum(String userAge) {
 
@@ -113,10 +113,10 @@ public class UserView {
     /**
      * 글자수를 제한하는 함수
      *
+     * @param s      : String 타입 변수
+     * @param length : 제한하고 싶은 글자수
      * @return 글자수가 제한글자수를 초과할시 false;
      * 글자수가 제한글자수보다 작을시 true;
-     * @param1 : String 타입 변수
-     * @param2 : 제한하고 싶은 글자수
      */
     boolean stringLength(String s, int length) {
         if (s.length() > length) {
@@ -135,9 +135,9 @@ public class UserView {
     /**
      * 올바른 생년월일 인지 검사하는 기능
      *
+     * @param age 정수로 변환될수있는 String
      * @return true 알맞은 생년월일
      * false 부정확한 생년월일
-     * @param1 정수로 변환될수있는 String
      */
 
     boolean checkAge(String age) {
