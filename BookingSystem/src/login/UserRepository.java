@@ -24,7 +24,7 @@ public class UserRepository {
     public static void loadSaveFile() {
         try (FileInputStream fis
                      = new FileInputStream(
-                "D:\\SportBooking\\BookingSystem\\src\\saveFile" + "/userInfo.sav")) {
+                "C:\\Study\\SportBooking2\\BookingSystem\\src\\saveFile" + "/userInfo.sav")) {
 
             // 객체를 불러올 보조스트림
             ObjectInputStream ois = new ObjectInputStream(fis);
@@ -52,7 +52,10 @@ public class UserRepository {
 
             } else if (userInfo.getUserId().equals(inputId) && userInfo.getUserPwd().equals(inputPwd)) {
                 System.out.println("로그인이 완료되었습니다2.");
+                userInfo=new UserInfo(userInfo.getUserId(),userInfo.getUserPwd(),userInfo.getUserName(),userInfo.getUserArea(),userInfo.getUserAge(),userInfo.getUserPhoneNum());
                 MyPageView.loginInfo(userInfo);
+                MyPageView mv=new MyPageView();
+                mv.viewUser();
 
             } else {
                 System.out.println("아이디 비밀번호를 다시 입력하세요");

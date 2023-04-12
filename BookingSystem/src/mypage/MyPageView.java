@@ -13,12 +13,12 @@ public class MyPageView {
     private static userSys.UserRepository ur; // 회원정보
     private static SportAreaRepository sr; // 예약내역
 
-    private static UserInfo userInfo;
+    private static UserInfo myInfo;
 
     static {
         ur = new userSys.UserRepository();
         sr = new SportAreaRepository();
-        userInfo=new UserInfo();
+
     }
 
     public static void start() {
@@ -99,10 +99,12 @@ public class MyPageView {
 
     }
 
-    public static UserInfo loginInfo(UserInfo userInfo) {
-        return userInfo=userInfo;
+    public static void loginInfo(UserInfo userInfo) {
+        myInfo=userInfo;
     }
-
+    public void viewUser(){
+        System.out.println(myInfo);
+    }
 
 
 
