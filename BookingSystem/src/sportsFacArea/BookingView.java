@@ -55,9 +55,14 @@ public class BookingView {
     }
 
     public void bookingFac() { // 예약 날짜 정하기 메서드
-        System.out.println("# 이용기간 4월");
-        String inputDay = input("[ 1일 ~ 30일 ] 입력 >> ");
+        System.out.println("# 이용기간 5월");
+        String inputDay = input("[ 1일 ~ 31일 ] 입력 >> ");
+        if (Integer.parseInt(inputDay) > 31 || Integer.parseInt(inputDay) < 1){
+            System.out.println("다시 입력하세요");
+            bookingFac();
+        }
         int inputTime = timeInterval(inputDay);
+
         boolean isRent = rentStuff();
         boolean isParking = parkCoupon();
 
@@ -86,14 +91,14 @@ public class BookingView {
     public void reservationInfo() {
         System.out.println("\n      [ 예약 정보 확인 ]");
         System.out.println("회원 이름 : "+info.getUserName());
-        System.out.println("날짜 : "+booking.getBookingDay()+"일");
+        System.out.println("날짜 : 5월 "+booking.getBookingDay()+"일");
         System.out.println("예약한 시간 : "+date.callMap().get(booking.getBookingDay()).dateList.get(booking.getTimeIndex()-1));
         System.out.println("대여한 물품 유무 : "+booking.isRent());
         System.out.println("주차 쿠폰 유무 : "+booking.isParking());
     }
 
     public int timeInterval(String inputDay) { // 예약 시간 정하기 메서드
-        System.out.println(inputDay+"일 운영시간 [ 10:00 ~ 22:00 ] 2시간 단위");
+        System.out.println("\n5월 "+inputDay+"일 운영시간 [ 10:00 ~ 22:00 ] 2시간 단위");
         Map<String, TimeList> timeListMap = date.callMap();
         TimeList timeList = timeListMap.get(inputDay);
         timeList.inform(); // 예약 가능한 시간대 출력
