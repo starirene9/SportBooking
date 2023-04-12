@@ -1,9 +1,6 @@
 package mypage;
 
-import login.UserRepository;
-import login.Utility;
 import sportsFacArea.SportAreaRepository;
-import sportsFacArea.SportBooking;
 import userSys.UserInfo;
 
 import static login.Utility.*;
@@ -102,8 +99,10 @@ public class MyPageView {
     public static void loginInfo(UserInfo userInfo) {
         myInfo=userInfo;
     }
+
     public void viewUser(){
         System.out.println(myInfo);
+        System.out.println("값 넘어갔습니다.");
     }
 
 
