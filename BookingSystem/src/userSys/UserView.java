@@ -12,6 +12,7 @@ public class UserView {
 
 
     static {
+
         urp = new UserRepository();
 
     }
@@ -21,7 +22,6 @@ public class UserView {
         joinMemberShip();
         urp.showList();
         urp.makeSaveFile();
-        urp.loadSaveFile();
     }
 
     private static void joinMemberShip() {
@@ -30,17 +30,17 @@ public class UserView {
         // 아이디 입력
         String userId;
         while (true) {
-            userId = input("# 아이디 : ");
+            userId = input("# 아이디(영어 또는 숫자) : ");
 
             // 아이디 중복검사
             if (urp.isDuplicate(userId)) {
-                System.out.println("아이디 중복입니다. 다시 입력해주세요");
+                System.out.println("중복된 아이디입니다. 다시 입력해주세요");
             } else {
-                if (!userId.equals("")) {
+                if (!userId.equals("")&&isAlphaNumeric(userId)) {
                     System.out.println("입력 가능한 아이디 입니다.");
                     break;
                 } else {
-                    System.out.println("값을 입력해주세요");
+                    System.out.println("올바른 ID을 입력해주세요");
                 }
             }
         }
@@ -57,7 +57,16 @@ public class UserView {
             }
         }
         // 이름 입력
-        String userName = input("# 이름 : ");
+        String userName;
+
+        while (true) {
+            userName = input("# 이름 : ");
+            if (isAlphaKorean(userName)) {
+                break;
+            } else {
+                System.out.println("올바른 이름을 입력하세요");
+            }
+        }
 
         // 거주지 입력
         System.out.println("거주지를 입력하세요");
@@ -94,6 +103,29 @@ public class UserView {
         // UserRepository 에저장
         urp.register(userInfo);
 
+    }
+
+    /** 아이디에 영어와 숫자로만 제한하는 함수
+     *
+     * @param inputId 입력하는 아이디
+     * @return true: 영어와 숫자
+     *         false: 영어와 숫자 이의의 값
+     */
+
+    public static boolean isAlphaNumeric(String inputId) {
+        return Pattern.matches("[a-zA-Z0-9]*$", inputId);
+    }
+
+    /**
+     * 이름에 영어와 한국만 제한하는 함수
+     *
+     * @param name: 입력한 이름
+     * @return true: 영어와 한국어만 사용
+     * false: 영어와 한국어 외의 String 사용
+     */
+
+    public static boolean isAlphaKorean(String name) {
+        return Pattern.matches("[a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣]*$", name);
     }
 
     /**

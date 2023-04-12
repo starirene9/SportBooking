@@ -1,12 +1,19 @@
 package login;
 
 public class UserView {
-    private static UserRepository repository = new UserRepository();
+    private static UserRepository repository;
+    public static UserView loginView;
 
-    public UserView() {
+    static {
+        loginView= new UserView();
+        repository  = new UserRepository();
+
     }
 
-    public void start() {
+    public  UserView() {
+    }
+
+    public void inputUserinfo() {
         while(true) {
             System.out.println("        [ 메 인 화 면 ]");
             System.out.println("1. 로그인하기");
@@ -24,10 +31,11 @@ public class UserView {
         }
     }
 
-    private void loginStart() {
+    public void loginStart() {
         String inputId = Utility.input("# 아이디 입력 : ");
         String inputPwd = Utility.input("# 비밀번호 입력 : ");
-
+        UserRepository.loadSaveFile();
+        repository.loginValidate(inputId,inputPwd);
         try {
             repository.loginValidate(inputId, inputPwd);
         } catch (LoginValidateException var4) {
@@ -36,7 +44,10 @@ public class UserView {
 
     }
 
-    private void joinStart() {
+    public void joinStart() {
+        repository.loadSaveFile();
+        inputUserinfo();
 
     }
+
 }

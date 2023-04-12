@@ -1,8 +1,9 @@
-import login.UserView;
+import static login.UserView.loginView;
 
 public class Run {
     public static void main(String[] args) {
-        UserView uv = new UserView();
-        uv.start();
+
+        loginView.joinStart();
+
     }
 }
