@@ -26,7 +26,7 @@ public class UserRepository {
     public static void loadSaveFile() {
         try (FileInputStream fis
                      = new FileInputStream(
-                "C:\\Study\\SportBooking2\\BookingSystem\\src\\saveFile" + "/userInfo.sav")) {
+                "D:\\SportBooking\\BookingSystem\\src\\saveFile" + "/userInfo.sav")) {
 
             // 객체를 불러올 보조스트림
             ObjectInputStream ois = new ObjectInputStream(fis);
