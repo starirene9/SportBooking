@@ -14,6 +14,15 @@ public class UserView {
     static {
         uv = new UserView();
         urp = new UserRepository();
+
+    }
+
+    void start() {
+
+        joinMemberShip();
+        urp.showList();
+        urp.makeSaveFile();
+        urp.loadSaveFile();
     }
 
     private void joinMemberShip() {
@@ -70,7 +79,7 @@ public class UserView {
         String userAge;
 
         while (true) {
-            userAge = input("생년월일(6자리) : ");
+            userAge = input("# 생년월일(6자리) : ");
             // 올바른 값 확인 && 글자수 제한
             if (checkDate(userAge)) {
                 break;
@@ -85,26 +94,6 @@ public class UserView {
 
         // UserRepository 에저장
         urp.register(userInfo);
-
-    }
-
-    /**
-     * String 을 int 로 치환하는 함수
-     *
-     * @param userAge 확인하고싶은 String 변수
-     * @return true 모두 숫자이다.
-     * false 숫자로 바꿀수 없는 값이 있다.
-     */
-    boolean isIntNum(String userAge) {
-
-        try {
-            int num = Integer.parseInt(userAge);
-            return true;
-        } catch (NumberFormatException ex) {
-            ex.getStackTrace();
-            System.out.println("올바른 값을 입력해주세요");
-            return false;
-        }
 
     }
 
@@ -124,17 +113,13 @@ public class UserView {
         return true;
     }
 
-    void start() {
-
-        joinMemberShip();
-        urp.showList();
-    }
 
     /**
      * 올바른 전화번호 인지 검사하는 기능
+     *
      * @param userPhoneNum 검사하고 싶은 핸드폰 번호
      * @return true: 올바른 번호 형태
-     *         false: 틀린 번호 형태
+     * false: 틀린 번호 형태
      */
     public boolean checkPhoneNum(String userPhoneNum) {
         String pattern2 = "^\\d{3}-\\d{3,4}-\\d{4}$";
