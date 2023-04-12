@@ -1,5 +1,6 @@
 package login;
 
+import mypage.MyPageView;
 import userSys.UserInfo;
 
 import java.io.FileInputStream;
@@ -42,15 +43,16 @@ public class UserRepository {
 
 
     public void loginValidate(String inputId, String inputPwd) {
+        UserInfo userInfo;
         try {
-            UserInfo userInfo = info.stream().filter(obj -> obj.getUserId().equals(inputId)).collect(Collectors.toList()).get(0);
+            userInfo = info.stream().filter(obj -> obj.getUserId().equals(inputId)).collect(Collectors.toList()).get(0);
             uv = new UserView();
             if (userInfo.getUserId().equals("admin") && userInfo.getUserPwd().equals("admin")) {
                 System.out.println("관리자 계정으로 로그인 하였습니다.");
 
             } else if (userInfo.getUserId().equals(inputId) && userInfo.getUserPwd().equals(inputPwd)) {
                 System.out.println("로그인이 완료되었습니다2.");
-                mypage.userMypageView.loginInfo(uerInfo);
+                MyPageView.loginInfo(userInfo);
 
             } else {
                 System.out.println("아이디 비밀번호를 다시 입력하세요");

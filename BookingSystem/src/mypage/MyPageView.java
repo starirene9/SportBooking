@@ -1,10 +1,10 @@
 package mypage;
 
-import login.UserInfo;
 import login.UserRepository;
 import login.Utility;
 import sportsFacArea.SportAreaRepository;
 import sportsFacArea.SportBooking;
+import userSys.UserInfo;
 
 import static login.Utility.*;
 
@@ -13,9 +13,12 @@ public class MyPageView {
     private static userSys.UserRepository ur; // 회원정보
     private static SportAreaRepository sr; // 예약내역
 
+    private static UserInfo userInfo;
+
     static {
         ur = new userSys.UserRepository();
         sr = new SportAreaRepository();
+        userInfo=new UserInfo();
     }
 
     public static void start() {
@@ -64,7 +67,7 @@ public class MyPageView {
         //회원에게 수정할 정보 입력받기
         System.out.printf(changeInfo + "변경을 선택하셨습니다.\n변경 할 내용을 입력하세요.");
         String changedInfo = input(">> ");
-        System.out.printf("%s님의 %s가 %s로 변경되었습니다. \n", , changeInfo, changedInfo);
+        System.out.printf("%s님의 %s가 %s로 변경되었습니다. \n", changeInfo, changedInfo);
 
         //저장하기 :
 
@@ -73,7 +76,7 @@ public class MyPageView {
     private static void seeMyBooking() {
         System.out.println("\n# 예약 내역 보기를 선택하셨습니다.");
         //예약 내역 불러오기
-        System.out.printf("\n=====%s님의 예약 내역=====", );
+        System.out.printf("\n=====%s님의 예약 내역=====");
         myPageExit(); //화면 나가기
 
     }
@@ -96,9 +99,11 @@ public class MyPageView {
 
     }
 
-    public userInfo loginInfo(userInfo user) { // 객체로 넘겨 받아서 get해서 쓰면 됨
-        return userInfo=user;
+    public static UserInfo loginInfo(UserInfo userInfo) {
+        return userInfo=userInfo;
     }
+
+
 
 
 }
