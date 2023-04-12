@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UserRepository implements Serializable {
-    private static List<UserInfo> userInfo;
+    public static List<UserInfo> userInfo;
 
     static {
         userInfo = new ArrayList<>(
