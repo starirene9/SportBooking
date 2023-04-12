@@ -1,7 +1,7 @@
 package login;
 
-public class LoginValidateException extends RuntimeException{
 
+public class LoginValidateException extends RuntimeException {
     public LoginValidateException() {
     }
 

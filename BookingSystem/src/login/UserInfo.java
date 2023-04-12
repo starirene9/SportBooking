@@ -3,12 +3,12 @@ package login;
 import java.util.Objects;
 
 public class UserInfo {
-    private String userId; // 로그인 아이디
-    private String userPwd; // 로그인 비밀번호
-    private String userName; // 이름
-    private String userArea; // 지역
-    private String userAge; // 나이
-    private String userPhoneNum; // 전화번호
+    private String userId;
+    private String userPwd;
+    private String userName;
+    private String userArea;
+    private String userAge;
+    private String userPhoneNum;
 
     public UserInfo() {
     }
@@ -28,7 +28,7 @@ public class UserInfo {
     }
 
     public String getUserId() {
-        return userId;
+        return this.userId;
     }
 
     public void setUserId(String userId) {
@@ -36,7 +36,7 @@ public class UserInfo {
     }
 
     public String getUserPwd() {
-        return userPwd;
+        return this.userPwd;
     }
 
     public void setUserPwd(String userPwd) {
@@ -44,7 +44,7 @@ public class UserInfo {
     }
 
     public String getUserName() {
-        return userName;
+        return this.userName;
     }
 
     public void setUserName(String userName) {
@@ -52,7 +52,7 @@ public class UserInfo {
     }
 
     public String getUserArea() {
-        return userArea;
+        return this.userArea;
     }
 
     public void setUserArea(String userArea) {
@@ -60,7 +60,7 @@ public class UserInfo {
     }
 
     public String getUserAge() {
-        return userAge;
+        return this.userAge;
     }
 
     public void setUserAge(String userAge) {
@@ -68,36 +68,29 @@ public class UserInfo {
     }
 
     public String getUserPhoneNum() {
-        return userPhoneNum;
+        return this.userPhoneNum;
     }
 
     public void setUserPhoneNum(String userPhoneNum) {
         this.userPhoneNum = userPhoneNum;
     }
 
-    @Override
     public String toString() {
-        return "UserInfo{" +
-                "userId='" + userId + '\'' +
-                ", userPwd='" + userPwd + '\'' +
-                ", userName='" + userName + '\'' +
-                ", userArea='" + userArea + '\'' +
-                ", userAge='" + userAge + '\'' +
-                ", userPhoneNum='" + userPhoneNum + '\'' +
-                '}';
+        return "UserInfo{userId='" + this.userId + "', userPwd='" + this.userPwd + "', userName='" + this.userName + "', userArea='" + this.userArea + "', userAge='" + this.userAge + "', userPhoneNum='" + this.userPhoneNum + "'}";
     }
 
-    @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserInfo userInfo = (UserInfo) o;
-        return Objects.equals(userId, userInfo.userId) && Objects.equals(userPwd, userInfo.userPwd) && Objects.equals(userName, userInfo.userName) && Objects.equals(userArea, userInfo.userArea) && Objects.equals(userAge, userInfo.userAge) && Objects.equals(userPhoneNum, userInfo.userPhoneNum);
+        if (this == o) {
+            return true;
+        } else if (o != null && this.getClass() == o.getClass()) {
+            UserInfo userInfo = (UserInfo)o;
+            return Objects.equals(this.userId, userInfo.userId) && Objects.equals(this.userPwd, userInfo.userPwd) && Objects.equals(this.userName, userInfo.userName) && Objects.equals(this.userArea, userInfo.userArea) && Objects.equals(this.userAge, userInfo.userAge) && Objects.equals(this.userPhoneNum, userInfo.userPhoneNum);
+        } else {
+            return false;
+        }
     }
 
-    @Override
     public int hashCode() {
-        return Objects.hash(userId, userPwd, userName, userArea, userAge, userPhoneNum);
+        return Objects.hash(new Object[]{this.userId, this.userPwd, this.userName, this.userArea, this.userAge, this.userPhoneNum});
     }
-
 }
