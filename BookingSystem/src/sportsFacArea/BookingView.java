@@ -129,11 +129,21 @@ public class BookingView {
 
     }
 
+    public int ageDisCount(){
+        if (Integer.parseInt(myInfo.getUserAge().substring(0,2)) < 25) return 10;
+        return 0;
+    }
+    public int placeDisCount(){
+        if (myInfo.getUserArea().equals(reserv.getUserPlace())) return 10;
+        return 0;
+    }
 
     public void reservationInfo() { // 예약 정보들 출력 메서드
         System.out.println("\n      [ 예약 정보 확인 ]");
         reserv.setUserName(myInfo.getUserName());
         System.out.println(reserv.info());
+        int ageDiscount = ageDisCount();
+        int placeDiscount = placeDisCount();
         int count = 0;
         int allTotal = 0;
         switch (reserv.getUserSport()) {
@@ -150,7 +160,10 @@ public class BookingView {
                 allTotal = swimRentList.rentTotal(); // 대여한 물품들의 가격 계산 메서드
                 break;
         }
-        reserv.setUserTotal(allTotal);
+//        int total = allTotal - (allTotal / ageDiscount) + allTotal - (allTotal / placeDiscount);
+        int total = (allTotal - (allTotal / ageDiscount)) + (allTotal - (allTotal / placeDiscount));
+        System.out.println(total);
+        reserv.setUserTotal(total);
         System.out.printf("총 대여한 물품의 개수 : %d개\n", count);
         System.out.printf("총 대여한 물품의 가격 : %d원\n", allTotal);
         System.out.printf("총 금액 : %d원\n", reserv.getUserTotal());
