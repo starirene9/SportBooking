@@ -18,8 +18,6 @@ public class AdminView {
             switch (adminInputNum) {
                 case "1":
                     System.out.println("예약목록을 보여드립니다.");
-
-
                     break;
                 case "0":
                     System.out.println("로그아웃 하시겠습니까?[Y/N]");
@@ -35,7 +33,6 @@ public class AdminView {
                         default:
                             System.out.println("값을 정확하게 입력해주세요");
                     }
-
                     break;
                 default:
                     System.out.println("올바른 값을 입력하세요");

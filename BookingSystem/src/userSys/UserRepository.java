@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UserRepository implements Serializable {
-    public static List<UserInfo> userInfo;
+    static List<UserInfo> userInfo;
 
     static {
         userInfo = new ArrayList<>(
@@ -18,15 +18,16 @@ public class UserRepository implements Serializable {
      * @param userInfo 회원가입시 입력된 정보들의 객체
      *                 회원가입시 입력된 정보들을 repository에 저장하는 함수
      */
-    public void register(UserInfo userInfo) {
+    void register(UserInfo userInfo) {
         UserRepository.userInfo.add(userInfo);
     }
+
 
     /**
      * @param userId 회원가입시 입력한 아이디
      * @return true : 중복, false: 중복되지않는다.
      */
-    public boolean isDuplicate(String userId) {
+    boolean isDuplicate(String userId) {
         for (UserInfo info : userInfo) {
             if (info.getUserId().equals(userId))
                 return true;
@@ -47,7 +48,7 @@ public class UserRepository implements Serializable {
 
         try (FileOutputStream fos
                      = new FileOutputStream(
-                 "BookingSystem/src/saveFile/userInfo.sav")) {
+                "BookingSystem/src/saveFile/userInfo.sav")) {
 
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(userInfo);

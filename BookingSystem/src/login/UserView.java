@@ -1,5 +1,7 @@
 package login;
 
+import static login.Utility.*;
+
 public class UserView {
     private static UserRepository repository;
     public static UserView loginView;
@@ -15,18 +17,17 @@ public class UserView {
 
     public void inputUserinfo() {
         while(true) {
-            System.out.println("        [ 메 인 화 면 ]");
-            System.out.println("1. 로그인하기");
-            System.out.println("2. 회원가입하기");
-            System.out.println("3. 관리자 계정으로 로그인");
-            switch (Utility.input("번호 입력 >> ")) {
+            System.out.println("===========[ 메 인 화 면 ]===========");
+            System.out.println("#1. 로그인하기");
+            System.out.println("#2. 회원가입하기");
+            String menuNum=input("번호 입력 >> ");
+            System.out.println("");
+            switch (menuNum) {
                 case "1":
-                    this.loginStart();
+                    loginStart();
                     break;
                 case "2":
                     userSys.UserView.start();
-                    break;
-                case "3":
                     break;
                 default:
                     System.out.println("메뉴 번호로 입력해주세요");
@@ -35,19 +36,25 @@ public class UserView {
     }
 
     public void loginStart() {
-        String inputId = Utility.input("# 아이디 입력 : ");
-        String inputPwd = Utility.input("# 비밀번호 입력 : ");
-        UserRepository.loadSaveFile();
-        repository.loginValidate(inputId,inputPwd);
-        try {
-            repository.loginValidate(inputId, inputPwd);
-        } catch (LoginValidateException var4) {
-            System.out.println(var4.getMessage());
+        System.out.println("===========[ 로 그 인 화 면 ]===========");
+        String inputId = input("# 아이디 입력 : ");
+        if(inputId.equals("")){
+            System.out.println("값을 입력해주세요");
+            loginStart();
         }
+        String inputPwd = input("# 비밀번호 입력 : ");
+        if(inputPwd.equals("")){
+            System.out.println("값을 입력해주세요");
+            loginStart();
+        }
+
+        repository.loginValidate(inputId,inputPwd);
+
 
     }
 
     public void joinStart() {
+
         repository.loadSaveFile();
         inputUserinfo();
 

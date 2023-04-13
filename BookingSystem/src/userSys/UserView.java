@@ -20,7 +20,7 @@ public class UserView {
     public static void start() {
 
         joinMemberShip();
-        urp.showList();
+//        urp.showList();
         urp.makeSaveFile();
     }
 
