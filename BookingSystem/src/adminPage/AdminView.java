@@ -6,6 +6,7 @@ import login.UserView;
 import static login.Utility.input;
 
 public class AdminView {
+    AdminRepository ar;
 
 
     public void adminMenu() {
@@ -18,6 +19,8 @@ public class AdminView {
             switch (adminInputNum) {
                 case "1":
                     System.out.println("예약목록을 보여드립니다.");
+                    ar=new AdminRepository();
+                    ar.loadReservationFile();
                     break;
                 case "0":
                     System.out.println("로그아웃 하시겠습니까?[Y/N]");

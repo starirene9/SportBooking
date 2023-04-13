@@ -3,6 +3,7 @@ package sportsFacArea;
 import login.UserInfo;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -123,9 +124,11 @@ public class BookingView {
     private void makeSaveFile() { // 예약 리스트를 save파일에 저장하는 메서드
         try (FileOutputStream fos
                      = new FileOutputStream(
-                "D:\\SportBooking\\BookingSystem\\src\\saveFile\\reservationInfo.txt")) {
+                "BookingSystem/src/saveFile/reservationInfo.txt")) {
+            List<SelectedReserv> list = new ArrayList<>();
+            list.add(reserv);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(reserv);
+            oos.writeObject(list);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }catch (RuntimeException e){
@@ -234,7 +237,7 @@ public class BookingView {
     public static void loadSaveFile() {
         try (FileInputStream fis
                      = new FileInputStream(
-                "D:\\SportBooking\\BookingSystem\\src\\saveFile\\reservationInfo.txt")) {
+                "BookingSystem/src/saveFile/reservationInfo.txt")) {
 
             // 객체를 불러올 보조스트림
             ObjectInputStream ois = new ObjectInputStream(fis);
