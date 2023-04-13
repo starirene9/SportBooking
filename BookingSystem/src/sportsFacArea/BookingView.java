@@ -17,6 +17,8 @@ public class BookingView {
     static SelectedReserv reserv;
     static SoccerRentList soccerRentList;
 
+    static userSys.UserInfo myInfo;
+
     static {
         repository = new SportAreaRepository();
         booking = new SportBooking();
@@ -24,6 +26,7 @@ public class BookingView {
         info = new UserInfo();
         reserv = new SelectedReserv();
         soccerRentList = new SoccerRentList();
+        myInfo=new userSys.UserInfo();
     }
 
     public void areaStart() { // 지역 정하기
@@ -249,6 +252,16 @@ public class BookingView {
         }
 
     }
+
+    public static void loginInfo(userSys.UserInfo userInfo) {
+        myInfo=userInfo;
+    }
+
+    public void viewUser(){
+        System.out.println(myInfo);
+        System.out.println("값 넘어갔습니다. kh");
+    }
+
 
 }
 

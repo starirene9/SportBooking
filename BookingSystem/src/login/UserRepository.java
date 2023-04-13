@@ -2,6 +2,7 @@ package login;
 
 import adminPage.AdminView;
 import mypage.MyPageView;
+import sportsFacArea.BookingView;
 import userSys.UserInfo;
 
 import java.io.FileInputStream;
@@ -63,7 +64,8 @@ public class UserRepository {
                 mv.viewUser();
                 MyPageView mypage = new MyPageView();
                 mypage.start();
-
+                BookingView bookingView=new BookingView();
+                bookingView.loginInfo(userInfo);
 
             } else {
                 System.out.println("아이디 비밀번호를 다시 입력하세요");
