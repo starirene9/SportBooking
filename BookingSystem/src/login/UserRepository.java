@@ -63,9 +63,9 @@ public class UserRepository {
                 MyPageView mv = new MyPageView();
                 mv.viewUser();
                 MyPageView mypage = new MyPageView();
-                mypage.start();
                 BookingView bookingView=new BookingView();
                 bookingView.loginInfo(userInfo);
+                mypage.start();
 
             } else {
                 System.out.println("아이디 비밀번호를 다시 입력하세요");

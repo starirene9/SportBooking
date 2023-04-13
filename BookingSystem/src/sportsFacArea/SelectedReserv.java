@@ -115,6 +115,7 @@ public class SelectedReserv implements Serializable {
                 " ]";
     }
     public String info(){
+        System.out.println("예약정보입니다.");
         return String.format("회원이름 : %s\n지역 : 서울시 %s\n체육시설 : %s\n예약날짜 : 5월 %s일\n예약시간 : %s (2시간)\n대여물품여부 : %b\n주차여부 : %b"
                 , userName,userPlace,userSport,userDate,userTime,isRent,isParking);
     }

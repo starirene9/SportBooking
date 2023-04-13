@@ -1,7 +1,10 @@
 package mypage;
 
+import sportsFacArea.BookingView;
+import sportsFacArea.SelectedReserv;
 import sportsFacArea.SportAreaRepository;
 import userSys.UserInfo;
+import userSys.UserView;
 
 import static login.Utility.*;
 
@@ -21,8 +24,34 @@ public class MyPageView {
     public static void start() {
 
         while (true) {
+            showLoginSuccess();
             showMainScreen();
             selectMenu();
+        }
+    }
+    private static void showLoginSuccess(){
+        System.out.println("==========Menu==========");
+        System.out.println("#1 시설 예약하기");
+        System.out.println("#2 Mypage로 이동");
+        System.out.println("#0. 로그아웃");
+
+        String num;
+        num=input(">>");
+        switch (num){
+            case "1":
+                BookingView bookingView=new BookingView();
+                bookingView.areaStart();
+                break;
+            case "2":
+
+                break;
+                case "0":
+                    login.UserView userView= new login.UserView();
+                    userView.inputUserinfo();
+                    break;
+            default:
+                System.out.println("값을 정확하게 입력해주세요");
+                showLoginSuccess();
         }
     }
 
@@ -57,7 +86,7 @@ public class MyPageView {
         System.out.println("\n# ====기존 회원 정보====");
         try {
             System.out.println("아이디 : "+ myInfo.getUserId());
-            System.out.println("패스워드 : *********");
+            System.out.println("패스워드 : "+ myInfo.getUserPwd());
             System.out.println("이름 : "+ myInfo.getUserName());
             System.out.println("나이 : "+ myInfo.getUserAge());
             System.out.println("거주지 : "+ myInfo.getUserArea());
@@ -88,7 +117,9 @@ public class MyPageView {
         System.out.println("\n# 예약 내역 보기를 선택하셨습니다.");
         //예약 내역 불러오기
         System.out.printf("\n=====%s님의 예약 내역=====", myInfo.getUserName());
-        myPageExit(); //화면 나가기
+        SelectedReserv selectedReserv=new SelectedReserv();
+        selectedReserv.info();
+//        myPageExit(); //화면 나가기
 
     }
 

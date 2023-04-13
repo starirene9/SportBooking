@@ -101,6 +101,7 @@ public class UserView {
         // 객체생성
         userInfo = new UserInfo(userId, userPwd, userName, userArea, userAge, userPhoneNum);
 
+
         // UserRepository 에저장
         urp.register(userInfo);
 
