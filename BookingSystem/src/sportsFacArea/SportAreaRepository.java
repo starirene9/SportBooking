@@ -1,7 +1,5 @@
 package sportsFacArea;
 
-import userSys.UserInfo;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,19 +12,11 @@ public class SportAreaRepository {
 
 
     static {
-        areaList = new ArrayList<>();
-        areaList.add("강동구");
-        areaList.add("강서구");
-        areaList.add("강남구");
-        areaList.add("강북구");
+        areaList = List.of("강동구", "강서구","강남구","강북구");
         sportList = new SportsFacList();
     }
 
-    public void showArea(){
-        for (int i = 0; i < areaList.size(); i++) {
-            System.out.printf("%d. %s\n",i+1,areaList.get(i));
-        }
-    }
+
 
     public SportAreaRepository() {
     }
@@ -43,6 +33,14 @@ public class SportAreaRepository {
         this.areaListIndex = areaListIndex;
     }
 
+    public void showArea(){ // 지역구 리스트 출력하기
+        for (int i = 0; i < areaList.size(); i++) {
+            System.out.printf("%d. %s\n",i+1,areaList.get(i));
+        }
+    }
+    public List<String> callListArea(){
+        return areaList;
+    }
 
 
 }
