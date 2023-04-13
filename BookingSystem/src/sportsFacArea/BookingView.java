@@ -141,11 +141,24 @@ public class BookingView {
     }
 
     public void showTotalPrice(int allTotal){
+        int academyDiscount = 0;
+        switch (input("중앙정보처리학원을 다니십니까? [y/n] ").toUpperCase().charAt(0)){
+            case 'Y':
+                System.out.println("추가 30%할인 적용되었습니다!");
+                academyDiscount = allTotal / 30;
+                break;
+            case 'N':
+                break;
+            default:
+                System.out.println("잘못된 입력입니다");
+                showTotalPrice(allTotal);
+        }
         int ageDiscount = 0;
         int placeDiscount = 0;
         if (ageDisCount() != 0) ageDiscount = allTotal / ageDisCount();
         if (placeDisCount() != 0) placeDiscount = allTotal / placeDisCount();
-        int total = allTotal - (ageDiscount + placeDiscount);
+
+        int total = allTotal - (ageDiscount + placeDiscount + academyDiscount);
 
         System.out.println("학생 할인 : "+ageDisCount() + "%");
         System.out.println("학생 할인 : "+placeDisCount()+ "%");
@@ -223,39 +236,6 @@ public class BookingView {
         return isRent;
     }
 
-//    private void soccerRentList() { // 축구장 렌트할 물건 보여주고 입력받기
-//        System.out.println("1. 축구 유니폼 [개당 1000원]");
-//        System.out.println("2. 축구화 [개당 2000원]");
-//        System.out.println("3. 축구공 [개당 1000원]");
-//        System.out.println("4. 종료");
-//
-//        String inputRentNum = input("# 빌릴 물건을 번호로 입력하세요 >> ");
-//        try {
-//            switch (inputRentNum){
-//                case "1":
-//                    soccerRentList.setSoccerUniform(Integer.parseInt(input("빌릴 유니폼의 갯수를 입력하세요 >> ")));
-//                    soccerRentList();
-//                    break;
-//                case "2":
-//                    soccerRentList.setSoccerShoes(Integer.parseInt(input("빌릴 축구화 갯수를 입력하세요 >> ")));
-//                    soccerRentList();
-//                    break;
-//                case "3":
-//                    soccerRentList.setSoccerBall(Integer.parseInt(input("빌릴 축구공 갯수를 입력하세요 >> ")));
-//                    soccerRentList();
-//                    break;
-//                case "4":
-//                    break;
-//                default:
-//                    System.out.println("잘못된 입력입니다");
-//                    soccerRentList();
-//            }
-//        }catch (NumberFormatException e){
-//            System.out.println("잘못된 입력입니다");
-//            soccerRentList();
-//        }
-//
-//    }
 
     public boolean parkCoupon() { // 주차 유무 확인 후 쿠폰 지금
         String inputParking = input("# 주차 쿠폰을 발행하시겠습니까? [y/n] ");
@@ -272,7 +252,6 @@ public class BookingView {
         }
         return isParking;
     }
-
 
     public static void loadSaveFile() {
         try (FileInputStream fis
@@ -293,7 +272,6 @@ public class BookingView {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
     public static void loginInfo(MemberShipUserInfo userInfo) {

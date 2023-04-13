@@ -52,10 +52,11 @@ public class SwimRentList {
     }
 
     public void swimRentList() { // 축구장 렌트할 물건 보여주고 입력받기
-        System.out.println("1. 수영모 [개당 1000원]");
+        System.out.println("        [ 대 여 물 품 ]");
+        System.out.println("\n1. 수영모 [개당 1000원]");
         System.out.println("2. 수경 [개당 1000원]");
         System.out.println("3. 튜브 [개당 1000원]");
-        System.out.println("4. 종료");
+        System.out.println("4. 종료\n");
 
         String inputRentNum = input("# 빌릴 물건을 번호로 입력하세요 >> ");
         try {

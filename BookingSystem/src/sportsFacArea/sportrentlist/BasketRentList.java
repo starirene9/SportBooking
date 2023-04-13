@@ -52,10 +52,11 @@ public class BasketRentList {
     }
 
     public void basketRentList() { // 축구장 렌트할 물건 보여주고 입력받기
-        System.out.println("1. 농구 조끼 [개당 1000원]");
+        System.out.println("        [ 대 여 물 품 ]");
+        System.out.println("\n1. 농구 조끼 [개당 1000원]");
         System.out.println("2. 컬러콘 [개당 1000원]");
         System.out.println("3. 농구공 [개당 1000원]");
-        System.out.println("4. 종료");
+        System.out.println("4. 종료\n");
 
         String inputRentNum = input("# 빌릴 물건을 번호로 입력하세요 >> ");
         try {
