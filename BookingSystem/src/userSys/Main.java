@@ -1,8 +1,6 @@
 package userSys;
 
 
-
-
 import static userSys.UserView.uv;
 
 

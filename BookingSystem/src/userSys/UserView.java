@@ -36,6 +36,7 @@ public class UserView {
             if (urp.isDuplicate(userId)) {
                 System.out.println("중복된 아이디입니다. 다시 입력해주세요");
             } else {
+                // 아이디 올바른 패턴 분석
                 if (!userId.equals("") && isAlphaNumeric(userId)) {
                     System.out.println("입력 가능한 아이디 입니다.");
                     break;
@@ -110,21 +111,20 @@ public class UserView {
      *
      * @param inputId 입력하는 아이디
      * @return true: 영어와 숫자
-     * false: 영어와 숫자 이의의 값
+     * @return false: 영어와 숫자 이의의 값
      */
-
     public static boolean isAlphaNumeric(String inputId) {
         return Pattern.matches("[a-zA-Z0-9]*$", inputId);
     }
+
 
     /**
      * 이름에 영어와 한국만 제한하는 함수
      *
      * @param name: 입력한 이름
      * @return true: 영어와 한국어만 사용
-     * false: 영어와 한국어 외의 String 사용
+     * @return false: 영어와 한국어 외의 String 사용
      */
-
     public static boolean isAlphaKorean(String name) {
         return Pattern.matches("[a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣]*$", name);
     }
@@ -134,8 +134,8 @@ public class UserView {
      *
      * @param s      : String 타입 변수
      * @param length : 제한하고 싶은 글자수
-     * @return 글자수가 제한글자수를 초과할시 false;
-     * 글자수가 제한글자수보다 작을시 true;
+     * @return true : 글자수가 제한글자수보다 작을시
+     * @return false :글자수가 제한글자수를 초과할시
      */
     static boolean stringLength(String s, int length) {
         if (s.length() > length) {
@@ -151,7 +151,7 @@ public class UserView {
      *
      * @param userPhoneNum 검사하고 싶은 핸드폰 번호
      * @return true: 올바른 번호 형태
-     * false: 틀린 번호 형태
+     * @return false: 틀린 번호 형태
      */
     public static boolean checkPhoneNum(String userPhoneNum) {
         String pattern2 = "^\\d{3}-\\d{3,4}-\\d{4}$";
@@ -168,9 +168,8 @@ public class UserView {
      * 올바른 생년월일 인지 검사하는 기능
      *
      * @param checkDate 정수로 변환될수있는 String
-     * @return true 알맞은 생년월일
-     * false 부정확한 생년월일
-     * @param1 정수로 변환될수있는 6자리 String
+     * @return true : 패턴에 맞은 생년월일
+     * @return false : 패턴과 다른 생년월일
      */
     public static boolean checkDate(String checkDate) {
         try {
