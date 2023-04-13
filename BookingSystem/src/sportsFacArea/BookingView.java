@@ -108,7 +108,7 @@ public class BookingView {
         String inputRes = input("예약 하시겠습니까? [y/n] ");
         switch (inputRes.toUpperCase().charAt(0)){
             case 'Y':
-//                makeSaveFile();
+                makeSaveFile();
                 break;
             case 'N':
                 break;
@@ -122,7 +122,7 @@ public class BookingView {
     private void makeSaveFile() { // 예약 리스트를 save파일에 저장하는 메서드
         try (FileOutputStream fos
                      = new FileOutputStream(
-                "D:\\SportBooking\\BookingSystem\\src\\saveFile" + "/reservationInfo.sav")) {
+                "../saveFile" + "/reservationInfo.txt")) {
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(reserv);
         } catch (IOException e) {
@@ -135,12 +135,11 @@ public class BookingView {
     public void reservationInfo() { // 예약 정보들 출력 메서드
         System.out.println("\n      [ 예약 정보 확인 ]");
         System.out.println(reserv.info());
-        int count = soccerRentList.getSoccerBall()+soccerRentList.getSoccerShoes()+soccerRentList.getSoccerUniform();
-        int total = soccerRentList.getSoccerUniform()*1000+soccerRentList.getSoccerShoes()*2000+soccerRentList.getSoccerBall()*1000;
-        int allTotal = total + 100000;
+        int count = soccerRentList.rentCount(); // 대여한 물품의 개수 출력 메서드
+        int allTotal = soccerRentList.rentTotal(); // 대여한 물품들의 가격 계산 메서드
         reserv.setUserTotal(allTotal);
         System.out.printf("총 대여한 물품의 개수 : %d개\n",count);
-        System.out.printf("총 대여한 물품의 가격 : %d원\n",total);
+        System.out.printf("총 대여한 물품의 가격 : %d원\n",allTotal);
         System.out.printf("총 금액 : %d원\n",reserv.getUserTotal());
     }
 

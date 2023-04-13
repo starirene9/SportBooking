@@ -37,4 +37,17 @@ public class SoccerRentList {
     public void setSoccerBall(int soccerBall) {
         this.soccerBall = soccerBall;
     }
+
+    public String allInfo(){
+        return String.format("대여한 유니폼의 개수 : %d\n대여한 축구화의 개수 %d\n대여한 축구공의 개수 %d\n",getSoccerUniform(),getSoccerShoes(),getSoccerBall());
+    }
+    public int rentTotal(){
+        return getSoccerUniform() * 1000 + getSoccerShoes() * 2000 + getSoccerBall() * 1000;
+    }
+
+    public int rentCount(){
+        return getSoccerUniform() + getSoccerShoes() + getSoccerBall();
+    }
+
+
 }
