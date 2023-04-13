@@ -41,6 +41,7 @@ public class MyPageView {
             case "1":
                 showMyInfo(); // 나의 정보 조회
                 changeMyInfo(); // 나의 정보 수정
+                myPageExit();
                 break;
 
             case "2":
@@ -54,7 +55,18 @@ public class MyPageView {
 
     private static void showMyInfo() {
         System.out.println("\n# ====기존 회원 정보====");
-        //회원 정보 보여주기
+        try {
+            System.out.println("아이디 : "+ myInfo.getUserId());
+            System.out.println("패스워드 : *********");
+            System.out.println("이름 : "+ myInfo.getUserName());
+            System.out.println("나이 : "+ myInfo.getUserAge());
+            System.out.println("거주지 : "+ myInfo.getUserArea());
+            System.out.println("전화번호 : "+ myInfo.getUserPhoneNum());
+        } catch (Exception e) {
+            System.out.println("기존 회원 정보가 없습니다.");
+            e.printStackTrace();
+        }
+
     }
 
     private static void changeMyInfo() {
@@ -62,18 +74,20 @@ public class MyPageView {
         String changeInfo = input(">> ");
 
         //회원에게 수정할 정보 입력받기
-        System.out.printf(changeInfo + "변경을 선택하셨습니다.\n변경 할 내용을 입력하세요.");
+        System.out.printf(changeInfo + "변경을 선택하셨습니다.\n변경 할 내용을 입력하세요.\n");
         String changedInfo = input(">> ");
-        System.out.printf("%s님의 %s가 %s로 변경되었습니다. \n", changeInfo, changedInfo);
+        System.out.printf("%s님의 %s가 %s로 변경되었습니다. \n",myInfo.getUserName(),changeInfo, changedInfo);
 
-        //저장하기 :
+        //저장하기
+
+        //취소하기
 
     }
 
     private static void seeMyBooking() {
         System.out.println("\n# 예약 내역 보기를 선택하셨습니다.");
         //예약 내역 불러오기
-        System.out.printf("\n=====%s님의 예약 내역=====");
+        System.out.printf("\n=====%s님의 예약 내역=====", myInfo.getUserName());
         myPageExit(); //화면 나가기
 
     }
