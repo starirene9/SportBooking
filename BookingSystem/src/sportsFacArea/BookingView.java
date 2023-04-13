@@ -2,10 +2,8 @@ package sportsFacArea;
 
 import login.UserInfo;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
+import java.util.List;
 import java.util.Map;
 
 import static login.Utility.input;
@@ -122,7 +120,7 @@ public class BookingView {
     private void makeSaveFile() { // 예약 리스트를 save파일에 저장하는 메서드
         try (FileOutputStream fos
                      = new FileOutputStream(
-                "../saveFile" + "/reservationInfo.txt")) {
+                "D:\\SportBooking\\BookingSystem\\src\\saveFile\\reservationInfo.txt")) {
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(reserv);
         } catch (IOException e) {
@@ -229,6 +227,28 @@ public class BookingView {
         return isParking;
     }
 
+
+    public static void loadSaveFile() {
+        try (FileInputStream fis
+                     = new FileInputStream(
+                "D:\\SportBooking\\BookingSystem\\src\\saveFile\\reservationInfo.txt")) {
+
+            // 객체를 불러올 보조스트림
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            List<userSys.UserInfo> object = (List<userSys.UserInfo>) ois.readObject();
+//            userInfo = object;
+//            System.out.println("로드 성공");
+//            System.out.println(userInfo);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }
 

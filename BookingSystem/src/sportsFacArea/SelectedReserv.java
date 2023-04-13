@@ -1,6 +1,8 @@
 package sportsFacArea;
 
-public class SelectedReserv {
+import java.io.Serializable;
+
+public class SelectedReserv implements Serializable {
 
     private String userName;
     private String userSport;
