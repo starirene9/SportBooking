@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class UserRepository {
     private static List<UserInfo> info;
     UserView uv;
-    public AdminView adminView;
+    AdminView adminView;
     UserView userview;
 
     static {

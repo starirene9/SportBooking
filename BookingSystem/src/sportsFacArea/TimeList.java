@@ -18,6 +18,7 @@ public class TimeList {
     }
 
 
+
     public void inform() {
         for (int i = 0; i < dateList.size(); i++) {
             System.out.printf("%d. [ %s ]\n", i + 1, dateList.get(i));
