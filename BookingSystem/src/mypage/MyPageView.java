@@ -53,7 +53,7 @@ public class MyPageView {
                 userView.inputUserinfo();
                 break;
             default:
-                System.out.println("번호를 정확하게 입력해주세요.");
+                System.out.println("잘못된 입력입니다.");
                 showLoginSuccess();
         }
     }
@@ -81,7 +81,6 @@ public class MyPageView {
      */
     private static void selectMenu() {
         String menuNum = input(">> ");
-
         switch (menuNum) {
             case "1":
                 showMyInfo(); // 나의 정보 조회
@@ -94,7 +93,7 @@ public class MyPageView {
                 break;
 
             default:
-                System.out.println("\n# 올바른 번호를 입력해주세요.");
+                System.out.println("\n# 잘못된 입력입니다. ");
                 selectMenu();
         }
     }
@@ -103,10 +102,10 @@ public class MyPageView {
      * 수정 전 보여지는 기존 회원 정보
      */
     private static void showMyInfo() {
-        System.out.println("\n# ====기존 회원 정보====");
+        System.out.println("\n# ====회원 정보====");
         try {
             System.out.println("아이디 : "+ myInfo.getUserId());
-            System.out.println("패스워드 : "+ myInfo.getUserPwd());
+            System.out.println("비밀번호 : "+ myInfo.getUserPwd());
             System.out.println("이름 : "+ myInfo.getUserName());
             System.out.println("나이 : "+ myInfo.getUserAge());
             System.out.println("거주지 : "+ myInfo.getUserArea());
@@ -121,17 +120,36 @@ public class MyPageView {
      * 개인 정보 수정 받는 화면 : 아이디, 이름, 생년월일 제외한 비번, 전화번호,거주지
      */
     private static void changeMyInfo() {
-        System.out.println("\n# 수정할 정보를 입력하세요.");
-        String changeInfo = input(">> ");
+        System.out.println("\n#수정할 정보의 번호를 입력하세요.\n1. 비밀번호 2. 거주지 3. 전화번호");
+        String choice = input(">> ");
 
-        //회원에게 수정할 정보 입력받기
-        System.out.printf(changeInfo + "변경을 선택하셨습니다.\n변경할 내용을 입력하세요.\n");
-        String changedInfo = input(">> ");
-        System.out.printf("%s님의 %s가 %s로 변경되었습니다. \n",myInfo.getUserName(),changeInfo, changedInfo);
-
-        //저장하기
-
-        //취소하기
+        //회원에게 수정할 정보 입력 받고 변경 하는 기능
+        switch (choice) {
+            case "1" :
+                System.out.println("새로운 비밀번호를 입력하세요.");
+                String newPwd = input(">> ");
+                myInfo.setUserPwd(newPwd);
+                System.out.println("비밀번호가 변경되었습니다.");
+                showMyInfo();
+                break;
+            case "2" :
+                System.out.println("새로운 거주지를 입력하세요.");
+                String newPlace = input(">> ");
+                myInfo.setUserArea(newPlace);
+                System.out.println("거주지가 변경되었습니다.");
+                showMyInfo();
+                break;
+            case "3" :
+                System.out.println("새로운 전화번호를 입력하세요.");
+                String newPhone = input(">> ");
+                myInfo.setUserPhoneNum(newPhone);
+                System.out.println("전화번호가 변경되었습니다.");
+                showMyInfo();
+                break;
+            default:
+                System.out.println("\n# 잘못된 입력입니다.");
+                changeMyInfo();
+        }
 
     }
 
