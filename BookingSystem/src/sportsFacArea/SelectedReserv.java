@@ -81,7 +81,7 @@ public class SelectedReserv implements Serializable {
     }
 
     public void setUserTotal(int userTotal) {
-        this.userTotal = userTotal;
+        this.userTotal = userTotal+100000;
     }
 
     public boolean isRent() {

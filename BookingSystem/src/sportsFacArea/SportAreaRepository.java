@@ -1,5 +1,8 @@
 package sportsFacArea;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +10,7 @@ public class SportAreaRepository {
 
     static List<String> areaList;
     static SportsFacList sportList;
+    static SelectedReserv reserv;
     private int areaListIndex;
 
 
@@ -14,6 +18,7 @@ public class SportAreaRepository {
     static {
         areaList = List.of("강동구", "강서구","강남구","강북구");
         sportList = new SportsFacList();
+        reserv = new SelectedReserv();
     }
 
 
@@ -40,6 +45,22 @@ public class SportAreaRepository {
     }
     public List<String> callListArea(){
         return areaList;
+    }
+
+    public void makeSaveFile() { // 예약 리스트를 save파일에 저장하는 메서드
+        try (FileOutputStream fos
+                     = new FileOutputStream(
+                "BookingSystem/src/saveFile/reservationInfo.txt")) {
+            List<SelectedReserv> list = new ArrayList<>();
+            list.add(reserv);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(list);
+            System.out.println("성공");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }catch (RuntimeException e){
+            System.out.println("오류");
+        }
     }
 
 
