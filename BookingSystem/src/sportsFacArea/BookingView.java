@@ -7,7 +7,6 @@ import sportsFacArea.sportrentlist.SoccerRentList;
 import sportsFacArea.sportrentlist.SwimRentList;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -141,35 +140,50 @@ public class BookingView {
         return 0;
     }
 
+    public void showTotalPrice(int allTotal){
+        int ageDiscount = 0;
+        int placeDiscount = 0;
+        if (ageDisCount() != 0) ageDiscount = allTotal / ageDisCount();
+        if (placeDisCount() != 0) placeDiscount = allTotal / placeDisCount();
+        int total = allTotal - (ageDiscount + placeDiscount);
+
+        System.out.println("학생 할인 : "+ageDisCount() + "%");
+        System.out.println("학생 할인 : "+placeDisCount()+ "%");
+
+        reserv.setUserTotal(total);
+        System.out.printf("결제할 총 금액 : %d원\n", reserv.getUserTotal());
+    }
+
     public void reservationInfo() { // 예약 정보들 출력 메서드
         System.out.println("\n      [ 예약 정보 확인 ]");
         reserv.setUserName(myInfo.getUserName());
         System.out.println(reserv.info());
-        int ageDiscount = ageDisCount();
-        int placeDiscount = placeDisCount();
-        int count = 0;
+        System.out.println("\n      [ 가 격 표 ]");
         int allTotal = 0;
         switch (reserv.getUserSport()) {
             case "축구장":
-                count = soccerRentList.rentCount(); // 대여한 물품의 개수 출력 메서드
+//                count = soccerRentList.rentCount(); // 대여한 물품의 개수 출력 메서드
                 allTotal = soccerRentList.rentTotal(); // 대여한 물품들의 가격 계산 메서드
+                System.out.println("구장 비용은 100,000원입니다!");
+                System.out.println(soccerRentList.allInfo());
+                System.out.printf("대여한 물품의 총 가격 : %d\n",soccerRentList.rentCount());
                 break;
             case "농구장":
-                count = basketRentList.rentCount(); // 대여한 물품의 개수 출력 메서드
+//                count = basketRentList.rentCount(); // 대여한 물품의 개수 출력 메서드
                 allTotal = basketRentList.rentTotal(); // 대여한 물품들의 가격 계산 메서드
+                System.out.println("구장 비용은 100,000원입니다!");
+                System.out.println(basketRentList.allInfo());
+                System.out.printf("대여한 물품의 총 가격 : %d\n",basketRentList.rentCount());
                 break;
             case "수영장":
-                count = swimRentList.rentCount(); // 대여한 물품의 개수 출력 메서드
+//                count = swimRentList.rentCount(); // 대여한 물품의 개수 출력 메서드
                 allTotal = swimRentList.rentTotal(); // 대여한 물품들의 가격 계산 메서드
+                System.out.println("구장 비용은 20,000원입니다!");
+                System.out.println(swimRentList.allInfo());
+                System.out.printf("대여한 물품의 총 가격 : %d\n",swimRentList.rentCount());
                 break;
         }
-//        int total = allTotal - (allTotal / ageDiscount) + allTotal - (allTotal / placeDiscount);
-        int total = (allTotal - (allTotal / ageDiscount)) + (allTotal - (allTotal / placeDiscount));
-        System.out.println(total);
-        reserv.setUserTotal(total);
-        System.out.printf("총 대여한 물품의 개수 : %d개\n", count);
-        System.out.printf("총 대여한 물품의 가격 : %d원\n", allTotal);
-        System.out.printf("총 금액 : %d원\n", reserv.getUserTotal());
+        showTotalPrice(allTotal);
     }
 
     public int timeInterval(String inputDay) { // 예약 시간 정하기 메서드
@@ -196,7 +210,7 @@ public class BookingView {
                 if (reserv.getUserSport().equals("축구장"))
                     soccerRentList.soccerRentList(); // 축구장 렌트 물품 보여주는 메서드
                 else if (reserv.getUserSport().equals("농구장"))
-                    basketRentList.basketRentList(); // 축구장 렌트 물품 보여주는 메서드
+                    basketRentList.basketRentList(); // 농구장 렌트 물품 보여주는 메서드
                 else if (reserv.getUserSport().equals("수영장"))
                     swimRentList.swimRentList(); // 수영장 렌트 물품 보여주는 메서드
                 break;

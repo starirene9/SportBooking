@@ -41,14 +41,14 @@ public class BasketRentList {
     }
 
     public String allInfo(){
-        return String.format("대여한 유니폼의 개수 : %d\n대여한 축구화의 개수 %d\n대여한 축구공의 개수 %d\n", getBasketUniform(), getColorCorn(), getBasketBall());
+        return String.format("대여한 농구조끼의 개수 : %d [개당 1000원]\n대여한 컬러콘의 개수 %d [개당 1000원]\n대여한 농구공의 개수 %d [개당 1000원]\n", getBasketUniform(), getColorCorn(), getBasketBall());
     }
     public int rentTotal(){
-        return getBasketUniform() * 1000 + getColorCorn() * 1000 + getBasketBall() * 1000;
+        return getBasketUniform() * 1000 + getColorCorn() * 1000 + getBasketBall() * 1000 + 100000;
     }
 
     public int rentCount(){
-        return getBasketUniform() + getColorCorn() + getBasketBall();
+        return getBasketUniform() * 1000 + getColorCorn() * 1000 + getBasketBall() * 1000;
     }
 
     public void basketRentList() { // 축구장 렌트할 물건 보여주고 입력받기
@@ -61,15 +61,15 @@ public class BasketRentList {
         try {
             switch (inputRentNum){
                 case "1":
-                    setBasketUniform(Integer.parseInt(input("빌릴 유니폼의 갯수를 입력하세요 >> ")));
+                    setBasketUniform(Integer.parseInt(input("빌릴 농구 조끼의 개수를 입력하세요 >> ")));
                     basketRentList();
                     break;
                 case "2":
-                    setColorCorn(Integer.parseInt(input("빌릴 축구화 갯수를 입력하세요 >> ")));
+                    setColorCorn(Integer.parseInt(input("빌릴 컬러콘 개수를 입력하세요 >> ")));
                     basketRentList();
                     break;
                 case "3":
-                    setBasketBall(Integer.parseInt(input("빌릴 축구공 갯수를 입력하세요 >> ")));
+                    setBasketBall(Integer.parseInt(input("빌릴 농구공 개수를 입력하세요 >> ")));
                     basketRentList();
                     break;
                 case "4":
