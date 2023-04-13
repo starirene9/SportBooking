@@ -1,7 +1,7 @@
-package userSys;
+package memberShipUserSystem;
 
 
-import static userSys.UserView.uv;
+import static memberShipUserSystem.MemberShipUserView.uv;
 
 
 public class Main {

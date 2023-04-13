@@ -1,7 +1,6 @@
 package adminPage;
 
 import sportsFacArea.SelectedReserv;
-import userSys.UserInfo;
 
 import java.io.*;
 import java.util.List;

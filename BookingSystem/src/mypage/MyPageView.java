@@ -4,18 +4,19 @@ import login.Utility;
 import sportsFacArea.BookingView;
 import sportsFacArea.SelectedReserv;
 import sportsFacArea.SportAreaRepository;
-import userSys.UserInfo;
+import memberShipUserSystem.MemberShipUserRepository;
+import memberShipUserSystem.MemberShipUserInfo;
 
 import static login.Utility.*;
 
 public class MyPageView {
 
-    private static userSys.UserRepository ur; // 회원정보
+    private static MemberShipUserRepository ur; // 회원정보
     private static SportAreaRepository sr; // 예약내역
-    private static UserInfo myInfo; // 회원 정보 객체
+    private static MemberShipUserInfo myInfo; // 회원 정보 객체
 
     static {
-        ur = new userSys.UserRepository();
+        ur = new MemberShipUserRepository();
         sr = new SportAreaRepository();
     }
 
@@ -190,7 +191,7 @@ public class MyPageView {
 
     }
 
-    public static void loginInfo(UserInfo userInfo) {
+    public static void loginInfo(MemberShipUserInfo userInfo) {
         myInfo=userInfo;
     }
 

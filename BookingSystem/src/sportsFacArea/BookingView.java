@@ -1,6 +1,7 @@
 package sportsFacArea;
 
 import login.UserInfo;
+import memberShipUserSystem.MemberShipUserInfo;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class BookingView {
     static SelectedReserv reserv;
     static SoccerRentList soccerRentList;
 
-    static userSys.UserInfo myInfo;
+    static MemberShipUserInfo myInfo;
 
     static {
         repository = new SportAreaRepository();
@@ -27,7 +28,7 @@ public class BookingView {
         info = new UserInfo();
         reserv = new SelectedReserv();
         soccerRentList = new SoccerRentList();
-        myInfo=new userSys.UserInfo();
+        myInfo=new MemberShipUserInfo();
     }
 
     public void areaStart() { // 지역 정하기
@@ -241,7 +242,7 @@ public class BookingView {
 
             // 객체를 불러올 보조스트림
             ObjectInputStream ois = new ObjectInputStream(fis);
-            List<userSys.UserInfo> object = (List<userSys.UserInfo>) ois.readObject();
+            List<MemberShipUserInfo> object = (List<MemberShipUserInfo>) ois.readObject();
 //            userInfo = object;
 //            System.out.println("로드 성공");
 //            System.out.println(userInfo);
@@ -256,7 +257,7 @@ public class BookingView {
 
     }
 
-    public static void loginInfo(userSys.UserInfo userInfo) {
+    public static void loginInfo(MemberShipUserInfo userInfo) {
         myInfo=userInfo;
     }
 

@@ -1,9 +1,8 @@
-package userSys;
+package memberShipUserSystem;
 
 import java.io.Serializable;
-import java.util.Objects;
 
-public class UserInfo implements Serializable {
+public class MemberShipUserInfo implements Serializable {
     private String userId; // 로그인 아이디
     private String userPwd; // 로그인 비밀번호
     private  String userName; // 사용자 이름
@@ -11,10 +10,10 @@ public class UserInfo implements Serializable {
     private  String userAge; //생년월일(6자리)
     private  String userPhoneNum; // 사용자 전화번호
 
-    public UserInfo() {
+    public MemberShipUserInfo() {
     }
 
-    public UserInfo(String userId, String userPwd, String userName, String userArea, String userAge, String userPhoneNum) {
+    public MemberShipUserInfo(String userId, String userPwd, String userName, String userArea, String userAge, String userPhoneNum) {
         this.userId = userId;
         this.userPwd = userPwd;
         this.userName = userName;

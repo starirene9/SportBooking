@@ -1,5 +1,7 @@
 package login;
 
+import memberShipUserSystem.MemberShipUserView;
+
 import static login.Utility.*;
 
 public class UserView {
@@ -27,7 +29,7 @@ public class UserView {
                     loginStart();
                     break;
                 case "2":
-                    userSys.UserView.start();
+                    MemberShipUserView.start();
                     break;
                 default:
                     System.out.println("메뉴 번호로 입력해주세요");
@@ -55,7 +57,7 @@ public class UserView {
 
     public void joinStart() {
 
-        repository.loadSaveFile();
+//        repository.loadSaveFile();
         inputUserinfo();
 
     }

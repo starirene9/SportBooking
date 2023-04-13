@@ -1,4 +1,4 @@
-package userSys;
+package memberShipUserSystem;
 
 import java.util.Scanner;
 

@@ -1,19 +1,19 @@
-package userSys;
+package memberShipUserSystem;
 
 import java.text.SimpleDateFormat;
 import java.util.regex.Pattern;
 
-import static userSys.Utility.*;
+import static memberShipUserSystem.Utility.*;
 
-public class UserView {
-    public static UserView uv;
-    static UserInfo userInfo;
-    private static UserRepository urp;
+public class MemberShipUserView {
+    public static MemberShipUserView uv;
+    static MemberShipUserInfo userInfo;
+    private static MemberShipUserRepository urp;
 
 
     static {
 
-        urp = new UserRepository();
+        urp = new MemberShipUserRepository();
 
     }
 
@@ -99,7 +99,7 @@ public class UserView {
 
 
         // 객체생성
-        userInfo = new UserInfo(userId, userPwd, userName, userArea, userAge, userPhoneNum);
+        userInfo = new MemberShipUserInfo(userId, userPwd, userName, userArea, userAge, userPhoneNum);
 
 
         // UserRepository 에저장

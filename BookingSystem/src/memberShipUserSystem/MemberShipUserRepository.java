@@ -1,16 +1,16 @@
-package userSys;
+package memberShipUserSystem;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class UserRepository implements Serializable {
-    static List<UserInfo> userInfo;
+public class MemberShipUserRepository implements Serializable {
+    static List<MemberShipUserInfo> userInfo;
 
     static {
         userInfo = new ArrayList<>(
-                Arrays.asList(new UserInfo("admin", "admin", "관리자", "", "", ""))
+                Arrays.asList(new MemberShipUserInfo("admin", "admin", "관리자", "", "", ""))
         );
     }
 
@@ -18,8 +18,8 @@ public class UserRepository implements Serializable {
      * @param userInfo 회원가입시 입력된 정보들의 객체
      *                 회원가입시 입력된 정보들을 repository에 저장하는 함수
      */
-    void register(UserInfo userInfo) {
-        UserRepository.userInfo.add(userInfo);
+    void register(MemberShipUserInfo userInfo) {
+        MemberShipUserRepository.userInfo.add(userInfo);
     }
 
 
@@ -28,7 +28,7 @@ public class UserRepository implements Serializable {
      * @return true : 중복, false: 중복되지않는다.
      */
     boolean isDuplicate(String userId) {
-        for (UserInfo info : userInfo) {
+        for (MemberShipUserInfo info : userInfo) {
             if (info.getUserId().equals(userId))
                 return true;
         }
@@ -37,7 +37,7 @@ public class UserRepository implements Serializable {
 
     // 현재 저장된 모든 객체의 정보를 보여주는 함수
     public void showList() {
-        for (UserInfo info : userInfo) {
+        for (MemberShipUserInfo info : userInfo) {
             System.out.println(info);
         }
     }
@@ -48,7 +48,7 @@ public class UserRepository implements Serializable {
 
         try (FileOutputStream fos
                      = new FileOutputStream(
-                "BookingSystem/src/saveFile/userInfo.sav")) {
+                "BookingSystem/src/saveFile/memberShipUserInfo.sav")) {
 
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(userInfo);

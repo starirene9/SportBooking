@@ -3,7 +3,7 @@ package login;
 import adminPage.AdminView;
 import mypage.MyPageView;
 import sportsFacArea.BookingView;
-import userSys.UserInfo;
+import memberShipUserSystem.MemberShipUserInfo;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserRepository {
-    private static List<UserInfo> info;
+    private static List<MemberShipUserInfo> info;
     UserView uv;
     AdminView adminView;
     UserView userview;
@@ -27,12 +27,12 @@ public class UserRepository {
     public static void loadSaveFile() {
         try (FileInputStream fis
                      = new FileInputStream(
-                "BookingSystem/src/saveFile/userInfo.sav")) {
+                "BookingSystem/src/saveFile/memberShipUserInfo.sav")) {
 
             // 객체를 불러올 보조스트림
             ObjectInputStream ois = new ObjectInputStream(fis);
-            List<userSys.UserInfo> userInfo = (List<UserInfo>) ois.readObject();
-            for (UserInfo userObj : userInfo) {
+            List<MemberShipUserInfo> userInfo = (List<MemberShipUserInfo>)ois.readObject();
+            for (MemberShipUserInfo userObj : userInfo) {
                 info.add(userObj);
 
             }
@@ -45,35 +45,39 @@ public class UserRepository {
         }
     }
 
-    /** 로그인시 입력한 값이 save 파일의 정보와 비교하여
-     *  알맞은 회원정보인지 확인하고 맞을 경우 다른 페이지로
-     *  정보와 함께 이동시키는 기능
-     * @param inputId 입력한 아이디
+    /**
+     * 로그인시 입력한 값이 save 파일의 정보와 비교하여
+     * 알맞은 회원정보인지 확인하고 맞을 경우 다른 페이지로
+     * 정보와 함께 이동시키는 기능
+     *
+     * @param inputId  입력한 아이디
      * @param inputPwd 입력한 비밀번호
      */
     public void loginValidate(String inputId, String inputPwd) {
-
-        UserInfo userInfo;
+        loadSaveFile();
+        MemberShipUserInfo userInfo;
         try {
             userInfo = info.stream().filter(obj -> obj.getUserId().equals(inputId)).collect(Collectors.toList()).get(0);
             uv = new UserView();
             if (userInfo.getUserId().equals("admin") && userInfo.getUserPwd().equals("admin")) {
                 System.out.println("관리자 계정으로 로그인 하였습니다.");
+                System.out.println("");
                 adminView = new AdminView();
                 adminView.adminMenu();
             } else if (userInfo.getUserId().equals(inputId) && userInfo.getUserPwd().equals(inputPwd)) {
                 System.out.println("");
                 System.out.printf("[%s]님 환영합니다!!!\n", userInfo.getUserName());
                 // 로그인한 계정의 정보를 객체화
-                userInfo = new UserInfo(userInfo.getUserId(), userInfo.getUserPwd(), userInfo.getUserName(), userInfo.getUserArea(), userInfo.getUserAge(), userInfo.getUserPhoneNum());
+                userInfo = new MemberShipUserInfo(userInfo.getUserId(), userInfo.getUserPwd(), userInfo.getUserName(), userInfo.getUserArea(), userInfo.getUserAge(), userInfo.getUserPhoneNum());
 
-                // 객체정보를 MyPageView 클래스로 넘김
+                //  MyPageView 클래스로 객체정보를 넘김
                 MyPageView.loginInfo(userInfo);
-                MyPageView mv = new MyPageView();
-//                // 확인용 메소드
+
+//                // 객체 이동 확인용 메소드
+//                MyPageView mv = new MyPageView();
 //                mv.viewUser();
 
-                // 객체정보를 BookingView 클래스로 넘김
+                //  BookingView 클래스로 객체정보를 넘김
                 BookingView bookingView = new BookingView();
                 bookingView.loginInfo(userInfo);
 
