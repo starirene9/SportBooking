@@ -7,6 +7,7 @@ import static login.Utility.*;
 public class UserView {
     private static UserRepository repository;
     public static UserView loginView;
+    MemberShipUserView msuv;
 
     static {
         loginView= new UserView();
@@ -29,7 +30,8 @@ public class UserView {
                     loginStart();
                     break;
                 case "2":
-                    MemberShipUserView.start();
+                    msuv=new MemberShipUserView();
+                    msuv.start();
                     break;
                 default:
                     System.out.println("메뉴 번호로 입력해주세요");

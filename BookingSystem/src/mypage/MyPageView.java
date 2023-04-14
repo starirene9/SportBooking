@@ -21,6 +21,7 @@ public class MyPageView {
     private static MemberShipUserRepository ur; // 회원정보
     private static SportAreaRepository sr; // 예약내역
     private static MemberShipUserInfo myInfo; // 회원 정보 객체
+    List<String> areaList = List.of("강남구", "강동구", "강북구", "강서구", "관악구", "구로구", "송파구", "마포구", "노원구", "종로구");
 
     static List<SelectedReserv> approved;
 
@@ -71,7 +72,7 @@ public class MyPageView {
     /*
      * 마이페이지 선택 메뉴
      */
-    private static void selectMenu() {
+    private  void selectMenu() {
         System.out.println("=====[ My Page ]=====");
         System.out.println("1. 회원 정보 수정");
         System.out.println("2. 예약 내역 보기");
@@ -103,7 +104,7 @@ public class MyPageView {
         System.out.println("아이디 : " + myInfo.getUserId());
         System.out.println("비밀번호 : " + myInfo.getUserPwd());
         System.out.println("이름 : " + myInfo.getUserName());
-        System.out.println("나이 : " + myInfo.getUserAge());
+        System.out.println("생년월일 : " + myInfo.getUserAge());
         System.out.println("거주지 : " + myInfo.getUserArea());
         System.out.println("전화번호 : " + myInfo.getUserPhoneNum());
 
@@ -114,7 +115,7 @@ public class MyPageView {
     /*
      * 개인 정보 수정 받는 화면 : 아이디, 이름, 생년월일 제외한 비번, 전화번호,거주지
      */
-    private static void changeMyInfo() {
+    private  void changeMyInfo() {
         System.out.println("\n#수정할 정보의 번호를 입력하세요.\n1. 비밀번호 2. 거주지 3. 전화번호");
         String choice = input(">> ");
 
@@ -124,18 +125,18 @@ public class MyPageView {
                 System.out.println("새로운 비밀번호를 입력하세요.");
                 String newPwd;
                 while (true) {
-                    newPwd = input("# 비밀번호(최대 13자) : ");
+                    newPwd = input("# 비밀번호(8자리 이상) : ");
                     // 비밀번호 글자수 13이하로 제한
-                    if (stringLength(newPwd, 13)) {
+                    if (stringLength(newPwd, 7,20)) {
                         break;
                     } else {
-                        System.out.println("비밀번호가 너무 깁니다. 10이하로 적어주세요");
+                        System.out.println("8자리 이상 입력해주세요");
                     }
                 }
                 myInfo.setUserPwd(newPwd);
-                System.out.println("========수정후 객체정보======");
-                System.out.println(myInfo + "/n");
-                System.out.println("===========================");
+//                System.out.println("========수정후 객체정보======");
+//                System.out.println(myInfo + "/n");
+//                System.out.println("===========================");
                 //userInfo에저장된 객체를 지우는 기능
                 ur.deleteUserInfo(myInfo);
                 System.out.println("비밀번호가 변경되었습니다.");
@@ -144,10 +145,16 @@ public class MyPageView {
             case "2":
                 System.out.println("새로운 거주지를 입력하세요.");
                 String newPlace = input(">> ");
+                showArea();
+                int areaNum = Integer.parseInt(Utility.input("\n# 번호로 입력하세요>> "));
+                String userArea = callListArea().get(areaNum - 1);
+
+
+
                 myInfo.setUserArea(newPlace);
-                System.out.println("========수정후 객체정보======");
-                System.out.println(myInfo + "/n");
-                System.out.println("===========================");
+//                System.out.println("========수정후 객체정보======");
+//                System.out.println(myInfo + "/n");
+//                System.out.println("===========================");
                 //userInfo에저장된 객체를 지우는 기능
                 ur.deleteUserInfo(myInfo);
                 System.out.println("거주지가 변경되었습니다.");
@@ -165,10 +172,12 @@ public class MyPageView {
                     }
                 }
                 myInfo.setUserPhoneNum(newPhone);
-                System.out.println("========수정후 객체정보======");
-                System.out.println(myInfo + "/n");
-                System.out.println("===========================");
-                //userInfo에저장된 객체를 지우는 기능
+
+//                System.out.println("========수정후 객체정보======");
+//                System.out.println(myInfo + "/n");
+//                System.out.println("===========================");
+
+                //userInfo 에저장된 객체를 지우는 기능
                 ur.deleteUserInfo(myInfo);
                 System.out.println("전화번호가 변경되었습니다.");
                 showMyInfo();
@@ -180,6 +189,16 @@ public class MyPageView {
 
     }
 
+    public void showArea() {
+        for (int i = 0; i < 5; i++) {
+            System.out.printf(" %d. %s\t\t", i + 1, areaList.get(i));
+            System.out.printf(" %d. %s\n", i + 6, areaList.get(i + 4));
+        }
+    }
+
+    public List<String> callListArea() {
+        return areaList;
+    }
 
 
     /*
@@ -201,7 +220,7 @@ public class MyPageView {
 //        }
 
 
-        for (SelectedReserv app : approvedList()) {
+        for (SelectedReserv app : loadApprovedList()) {
             System.out.println(app.info());
         }
         myPageExit(); //화면 나가기
@@ -209,7 +228,7 @@ public class MyPageView {
     }
 
 
-    public static List<SelectedReserv> approvedList() {
+    public static List<SelectedReserv> loadApprovedList() {
         approved = new ArrayList<>();
         try (FileInputStream fis
                      = new FileInputStream(

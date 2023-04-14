@@ -8,6 +8,7 @@ import sportsFacArea.sportrentlist.SoccerRentList;
 import sportsFacArea.sportrentlist.SwimRentList;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.*;
 
 import static login.Utility.input;
@@ -86,6 +87,7 @@ public class BookingView {
 
     public void bookingFac() { // 예약 날짜 정하기 메서드
         System.out.println("# 이용기간 5월");
+
         String inputDay = input("[ 1일 ~ 31일 ] 입력 >> ");
         try {
             if (Integer.parseInt(inputDay) > 31 || Integer.parseInt(inputDay) < 1) {
