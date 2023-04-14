@@ -21,7 +21,7 @@ public class MyPageView {
     private static MemberShipUserRepository ur; // 회원정보
     private static SportAreaRepository sr; // 예약내역
     private static MemberShipUserInfo myInfo; // 회원 정보 객체
-    List<String> areaList = List.of("강남구", "강동구", "강북구", "강서구", "관악구", "구로구", "송파구", "마포구", "노원구", "종로구");
+    static List<String> areaList = List.of("강남구", "강동구", "강북구", "강서구", "관악구", "구로구", "송파구", "마포구", "노원구", "종로구");
 
     static List<SelectedReserv> approved;
 
@@ -72,7 +72,7 @@ public class MyPageView {
     /*
      * 마이페이지 선택 메뉴
      */
-    private  void selectMenu() {
+    private static void selectMenu() {
         System.out.println("=====[ My Page ]=====");
         System.out.println("1. 회원 정보 수정");
         System.out.println("2. 예약 내역 보기");
@@ -115,7 +115,7 @@ public class MyPageView {
     /*
      * 개인 정보 수정 받는 화면 : 아이디, 이름, 생년월일 제외한 비번, 전화번호,거주지
      */
-    private  void changeMyInfo() {
+    private static void changeMyInfo() {
         System.out.println("\n#수정할 정보의 번호를 입력하세요.\n1. 비밀번호 2. 거주지 3. 전화번호");
         String choice = input(">> ");
 
@@ -189,14 +189,14 @@ public class MyPageView {
 
     }
 
-    public void showArea() {
+    public static void showArea() {
         for (int i = 0; i < 5; i++) {
             System.out.printf(" %d. %s\t\t", i + 1, areaList.get(i));
             System.out.printf(" %d. %s\n", i + 6, areaList.get(i + 4));
         }
     }
 
-    public List<String> callListArea() {
+    public static List<String> callListArea() {
         return areaList;
     }
 
