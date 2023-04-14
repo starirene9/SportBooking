@@ -22,6 +22,36 @@ public class MemberShipUserRepository implements Serializable {
         MemberShipUserRepository.userInfo.add(userInfo);
     }
 
+    // 수정되기전 객체를 userInfo 에서 찾아서 지우는 기능
+    public void deleteUserInfo(MemberShipUserInfo myInfo) {
+        for (int i =  userInfo.toArray().length-1; i >=0; i--) {
+            if(userInfo.get(i).getUserId().equals(myInfo.getUserId())){
+                userInfo.remove(userInfo.get(i));
+            }
+        }
+
+//        for (MemberShipUserInfo checkInfo : userInfo) {
+//            if(checkInfo.getUserId().equals(myInfo.getUserId())){
+//                userInfo.remove(checkInfo);
+//            }
+//        }
+        System.out.println("=============지운후 리스트의 정보============");
+        for (MemberShipUserInfo memberShipUserInfo : userInfo) {
+            System.out.println(memberShipUserInfo + "\n");
+        }
+        System.out.println("==========================================");
+
+    }
+
+    // 수정후 객체를 userInfo 에 추가하는 기능
+    public void newLoad(MemberShipUserInfo myInfo) {
+        userInfo.add(myInfo);
+        for (MemberShipUserInfo memberShipUserInfo : userInfo) {
+            System.out.println(memberShipUserInfo);
+        }
+
+        makeSaveFile();
+    }
 
     /**
      * @param userId 회원가입시 입력한 아이디
@@ -38,7 +68,7 @@ public class MemberShipUserRepository implements Serializable {
     // 현재 저장된 모든 객체의 정보를 보여주는 함수
     public void showList() {
         for (MemberShipUserInfo info : userInfo) {
-            System.out.println(info);
+            System.out.println(info+"\n");
         }
     }
 
@@ -52,7 +82,13 @@ public class MemberShipUserRepository implements Serializable {
 
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(userInfo);
-//            System.out.println("save 성공");
+            System.out.println("=============save 후 리스트의 정보============");
+            for (MemberShipUserInfo memberShipUserInfo : userInfo) {
+                System.out.println(memberShipUserInfo + "\n");
+            }
+            System.out.println("==========================================");
+
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

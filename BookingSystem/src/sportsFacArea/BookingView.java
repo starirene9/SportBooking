@@ -121,7 +121,6 @@ public class BookingView {
         String inputRes = input("예약 하시겠습니까? [y/n] ");
         switch (inputRes.toUpperCase().charAt(0)) {
             case 'Y':
-                System.out.println(reserv);
                 repository.makeSaveFile();
                 break;
             case 'N':
@@ -165,8 +164,8 @@ public class BookingView {
                 break;
         }
 //        int total = allTotal - (allTotal / ageDiscount) + allTotal - (allTotal / placeDiscount);
-        ageDiscount=2;
-        placeDiscount=2;
+        ageDiscount=5;
+        placeDiscount=5;
         int total = (allTotal - (allTotal / ageDiscount)) + (allTotal - (allTotal / placeDiscount));
         System.out.println(total);
         reserv.setUserTotal(total);

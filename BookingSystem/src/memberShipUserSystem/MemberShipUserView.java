@@ -88,12 +88,12 @@ public class MemberShipUserView {
         String userAge;
 
         while (true) {
-            userAge = input("# 생년월일(6자리) : ");
+            userAge = input("# 생년월일(8자리) : ");
             // 올바른 값 확인 && 글자수 제한
             if (checkDate(userAge)) {
                 break;
             } else {
-                System.out.println("올바른값을 입력해주세요(6자리)");
+                System.out.println("올바른값을 입력해주세요(8자리)");
             }
         }
 
@@ -138,7 +138,7 @@ public class MemberShipUserView {
      * @return true : 글자수가 제한글자수보다 작을시
      * @return false :글자수가 제한글자수를 초과할시
      */
-    static boolean stringLength(String s, int length) {
+    public static boolean stringLength(String s, int length) {
         if (s.length() > length) {
             System.out.printf("%d 자리 이하로 입력해주세요\n", length);
             return false;
@@ -174,7 +174,7 @@ public class MemberShipUserView {
      */
     public static boolean checkDate(String checkDate) {
         try {
-            SimpleDateFormat dateFormatParser = new SimpleDateFormat("yyMMdd");
+            SimpleDateFormat dateFormatParser = new SimpleDateFormat("yyyyMMdd");
             dateFormatParser.setLenient(false);
             dateFormatParser.parse(checkDate);
             return true;
