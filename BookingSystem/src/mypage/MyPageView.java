@@ -21,6 +21,7 @@ public class MyPageView {
     static {
         ur = new MemberShipUserRepository();
         sr = new SportAreaRepository();
+        myInfo=new MemberShipUserInfo();
     }
 
     public static void start() {
@@ -107,20 +108,20 @@ public class MyPageView {
      */
     private static void showMyInfo() {
         System.out.println("\n# ====회원 정보====");
-        try {
-            System.out.println("아이디 : " + myInfo.getUserId());
-            System.out.println("비밀번호 : " + myInfo.getUserPwd());
-            System.out.println("이름 : " + myInfo.getUserName());
-            System.out.println("나이 : " + myInfo.getUserAge());
-            System.out.println("거주지 : " + myInfo.getUserArea());
-            System.out.println("전화번호 : " + myInfo.getUserPhoneNum());
-        } catch (Exception e) {
-            System.out.println("기존 회원 정보가 없습니다.");
-            e.printStackTrace();
-        }
+
+            System.out.println("아이디 : "+ myInfo.getUserId());
+            System.out.println("비밀번호 : "+ myInfo.getUserPwd());
+            System.out.println("이름 : "+ myInfo.getUserName());
+            System.out.println("나이 : "+ myInfo.getUserAge());
+            System.out.println("거주지 : "+ myInfo.getUserArea());
+            System.out.println("전화번호 : "+ myInfo.getUserPhoneNum());
+
+            // 이정보를 memberShipUserRepository 로 보내고
+            MemberShipUserRepository.upDateInfo(myInfo);
+
+
 
     }
-
     /*
      * 개인 정보 수정 받는 화면 : 아이디, 이름, 생년월일 제외한 비번, 전화번호,거주지
      */
@@ -130,7 +131,7 @@ public class MyPageView {
 
         //회원에게 수정할 정보 입력 받고 변경 하는 기능
         switch (choice) {
-            case "1":
+            case "1" :
                 System.out.println("새로운 비밀번호를 입력하세요.");
                 String newPwd;
                 while (true) {
@@ -150,20 +151,13 @@ public class MyPageView {
                 ur.deleteUserInfo(myInfo);
                 System.out.println("비밀번호가 변경되었습니다.");
 
-                //myInfo에 저장된 객체를 MemberShipUserRepository로 정보를 보내주는 기능
-                ur.newLoad(myInfo);
-
                 showMyInfo();
                 break;
             case "2":
                 System.out.println("새로운 거주지를 입력하세요.");
                 String newPlace = input(">> ");
                 myInfo.setUserArea(newPlace);
-                //userInfo에저장된 객체를 지우는 기능
-                ur.deleteUserInfo(myInfo);
                 System.out.println("거주지가 변경되었습니다.");
-                //myInfo에 저장된 객체를 MemberShipUserRepository로 정보를 보내주는 기능
-                ur.newLoad(myInfo);
                 showMyInfo();
                 break;
             case "3":
@@ -178,11 +172,7 @@ public class MyPageView {
                     }
                 }
                 myInfo.setUserPhoneNum(newPhone);
-                //userInfo에저장된 객체를 지우는 기능
-                ur.deleteUserInfo(myInfo);
                 System.out.println("전화번호가 변경되었습니다.");
-                //myInfo에 저장된 객체를 MemberShipUserRepository로 정보를 보내주는 기능
-                ur.newLoad(myInfo);
                 showMyInfo();
                 break;
             default:

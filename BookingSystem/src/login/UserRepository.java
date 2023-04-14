@@ -13,8 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static memberShipUserSystem.Utility.input;
+
 public class UserRepository {
-    private static List<MemberShipUserInfo> info;
+    public static List<MemberShipUserInfo> info;
     UserView uv;
     AdminView adminView;
     UserView userview;
@@ -100,6 +102,20 @@ public class UserRepository {
             }
         } catch (IndexOutOfBoundsException e) {
             System.out.println("존재하는 회원정보가 없습니다.");
+            whileloop:while (true) {
+                String back=input("처음화면으로 돌아가시겠습니까?[Y/N]");
+                uv=new UserView();
+                switch (back.toUpperCase().charAt(0)){
+                    case 'Y':
+                        uv.inputUserinfo();
+                        break whileloop;
+                    case 'N':
+                        uv.loginStart();
+                        break whileloop;
+                    default:
+                        System.out.println("정확한 값을 입력해주세요");
+                }
+            }
             userview = new UserView();
             // 로그인 실패시 다시 로그인 화면을 띄어주는 기능
             userview.loginStart();
