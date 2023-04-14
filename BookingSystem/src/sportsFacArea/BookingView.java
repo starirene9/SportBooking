@@ -161,7 +161,7 @@ public class BookingView {
         int total = allTotal - (ageDiscount + placeDiscount + academyDiscount);
 
         System.out.println("학생 할인 : "+ageDisCount() + "%");
-        System.out.println("학생 할인 : "+placeDisCount()+ "%");
+        System.out.println("지역 할인 : "+placeDisCount()+ "%");
 
         reserv.setUserTotal(total);
         System.out.printf("결제할 총 금액 : %d원\n", reserv.getUserTotal());

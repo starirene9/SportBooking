@@ -16,7 +16,7 @@ public class SportAreaRepository {
 
 
     static {
-        areaList = List.of("강동구", "강서구","강남구","강북구");
+        areaList = List.of("강남구", "강동구","강북구","강서구","관악구","구로구","송파구","마포구","노원구","종로구");
         sportList = new SportsFacList();
         reserv = new SelectedReserv();
     }
@@ -38,11 +38,22 @@ public class SportAreaRepository {
         this.areaListIndex = areaListIndex;
     }
 
-    public void showArea(){ // 지역구 리스트 출력하기
-        for (int i = 0; i < areaList.size(); i++) {
-            System.out.printf("%d. %s\n",i+1,areaList.get(i));
+//    public void showArea(){ // 지역구 리스트 출력하기
+//        for (int i = 0; i < areaList.size(); i++) {
+//            System.out.printf("%d. %s\n",i+1,areaList.get(i));
+//        }
+//    }
+
+    public void showArea(){
+        for (int i = 0; i < 5; i++) {
+            System.out.printf(" %d. %s\t\t",i+1,areaList.get(i));
+                System.out.printf(" %d. %s\n",i+5,areaList.get(i+4));
+
         }
+
+//        return String.format("%s\t%s\n%s\t%s\n%s\t%s\n%s\t%s\n%s\t%s\n",areaList.get(0));
     }
+
     public List<String> callListArea(){
         return areaList;
     }
