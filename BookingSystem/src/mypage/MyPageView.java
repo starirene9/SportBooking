@@ -35,7 +35,7 @@ public class MyPageView {
      * 로그인 성공 후 보여지는 메인 화면
      */
 
-    private static void showLoginSuccess() {
+    public static void showLoginSuccess() {
         System.out.println("==========[Menu]==========");
         System.out.println("#1 시설 예약하기");
         System.out.println("#2 Mypage로 이동");

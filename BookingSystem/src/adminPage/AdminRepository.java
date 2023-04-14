@@ -12,7 +12,8 @@ public class AdminRepository {
 
 
     // 예약정보를 담은 save 파일을 로드하는 함수
-    public void loadReservationFile() {
+    public List<SelectedReserv> loadReservationFile() {
+
         try (FileInputStream fis
                      = new FileInputStream(
                 "BookingSystem/src/saveFile/reservationInfo.txt")) {
@@ -23,9 +24,9 @@ public class AdminRepository {
 //            System.out.println(userInfo);
             System.out.println("여기");
             userInfo = (List<SelectedReserv>)ois.readObject();
-            for (SelectedReserv userObj : userInfo) {
-                System.out.println(userObj);
-
+            for (int i = 0; i < userInfo.size(); i++) {
+                SelectedReserv userObj = userInfo.get(i);
+                System.out.println(i+1+". "+userObj.info());
             }
 
         } catch (FileNotFoundException ex) {
@@ -38,7 +39,7 @@ public class AdminRepository {
             System.out.println("에러2");
             e.printStackTrace();
         }
-
+        return userInfo;
     }
 
     // 수락한 예약정보 객체를 save 하는 기능

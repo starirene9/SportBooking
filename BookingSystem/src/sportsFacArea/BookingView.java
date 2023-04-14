@@ -1,5 +1,6 @@
 package sportsFacArea;
 
+import adminPage.AdminRepository;
 import login.UserInfo;
 import memberShipUserSystem.MemberShipUserInfo;
 import sportsFacArea.sportrentlist.BasketRentList;
@@ -7,11 +8,10 @@ import sportsFacArea.sportrentlist.SoccerRentList;
 import sportsFacArea.sportrentlist.SwimRentList;
 
 import java.io.*;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static login.Utility.input;
+import static mypage.MyPageView.showLoginSuccess;
 
 public class BookingView {
 
@@ -26,16 +26,17 @@ public class BookingView {
     static Calendar calendar;
 
     static MemberShipUserInfo myInfo;
+    static AdminRepository adminRepository;
 
     static {
         repository = new SportAreaRepository();
+        adminRepository = new AdminRepository();
         booking = new SportBooking();
         date = new DateList();
         info = new UserInfo();
         reserv = new SelectedReserv();
         soccerRentList = new SoccerRentList();
         myInfo=new MemberShipUserInfo();
-//        myInfo = new userSys.UserInfo();
         basketRentList = new BasketRentList();
         swimRentList = new SwimRentList();
         calendar = Calendar.getInstance();
@@ -118,24 +119,26 @@ public class BookingView {
         reserv.setParking(isParking);
         reserv.setUserTime(date.callMap().get(booking.getBookingDay()).dateList.get(booking.getTimeIndex() - 1));
     }
-
-    private void confirmRes() { // 마지막으로 예약을 할 것인지 물어보는 메서드
-        String inputRes = input("예약 하시겠습니까? [y/n] ");
-        switch (inputRes.toUpperCase().charAt(0)) {
-            case 'Y':
-                repository.makeSaveFile();
-                break;
-            case 'N':
-                break;
-            default:
-                System.out.println("잘못된 입력입니다");
-                confirmRes();
+    public int timeInterval(String inputDay) { // 예약 시간 정하기 메서드
+        System.out.println("\n5월 " + inputDay + "일 운영시간 [ 10:00 ~ 22:00 ] 2시간 단위");
+        Map<String, TimeList> timeListMap = date.callMap();
+        TimeList timeList = timeListMap.get(inputDay);
+        timeList.inform(); // 예약 가능한 시간대 출력
+        int inputTime = 0;
+        try {
+            inputTime = Integer.parseInt(input("\n# 예약할 시간을 번호로 입력 >> "));
+        } catch (NumberFormatException e) {
+            System.out.println("잘못된 입력입니다");
+            timeInterval(inputDay);
         }
-
+        return inputTime;
     }
 
+
+
     public int ageDisCount(){
-        int userAge = Integer.parseInt(myInfo.getUserAge().substring(0,4));
+        int userAge = 2023 - Integer.parseInt(myInfo.getUserAge().substring(0,4));
+        if (userAge < 25) return 10;
         return 0;
     }
     public int placeDisCount(){
@@ -147,8 +150,8 @@ public class BookingView {
         int academyDiscount = 0;
         switch (input("중앙정보처리학원을 다니십니까? [y/n] ").toUpperCase().charAt(0)){
             case 'Y':
-                System.out.println("추가 30%할인 적용되었습니다!");
-                academyDiscount = allTotal / 30;
+                System.out.println("추가 20%할인 적용되었습니다!");
+                academyDiscount = (allTotal / 10) * 2;
                 break;
             case 'N':
                 break;
@@ -201,21 +204,11 @@ public class BookingView {
         }
         showTotalPrice(allTotal);
     }
+//    public SelectedReserv setReserv(){
+//        return reserv;
+//    }
 
-    public int timeInterval(String inputDay) { // 예약 시간 정하기 메서드
-        System.out.println("\n5월 " + inputDay + "일 운영시간 [ 10:00 ~ 22:00 ] 2시간 단위");
-        Map<String, TimeList> timeListMap = date.callMap();
-        TimeList timeList = timeListMap.get(inputDay);
-        timeList.inform(); // 예약 가능한 시간대 출력
-        int inputTime = 0;
-        try {
-            inputTime = Integer.parseInt(input("\n# 예약할 시간을 번호로 입력 >> "));
-        } catch (NumberFormatException e) {
-            System.out.println("잘못된 입력입니다");
-            timeInterval(inputDay);
-        }
-        return inputTime;
-    }
+
 
     public boolean rentStuff() { // 대여물품 렌트 여부
         String inputRent = input("# 대여물품을 선택하시겠습니까? [y/n] ");
@@ -256,6 +249,23 @@ public class BookingView {
         return isParking;
     }
 
+    public void confirmRes() { // 마지막으로 예약을 할 것인지 물어보는 메서드
+        String inputRes = input("예약 하시겠습니까? [y/n] ");
+        switch (inputRes.toUpperCase().charAt(0)) {
+            case 'Y':
+                makeSaveFile();
+                showLoginSuccess();
+                break;
+            case 'N':
+                showLoginSuccess();
+                break;
+            default:
+                System.out.println("잘못된 입력입니다");
+                confirmRes();
+        }
+
+    }
+
     public static void loadSaveFile() {
         try (FileInputStream fis
                      = new FileInputStream(
@@ -285,7 +295,27 @@ public class BookingView {
         System.out.println(myInfo);
         System.out.println("값 넘어갔습니다. kh");
     }
-
+    public void makeSaveFile() { // 예약 리스트를 save파일에 저장하는 메서드
+        List<SelectedReserv> reservationFile = adminRepository.loadReservationFile();
+        try (FileOutputStream fos
+                     = new FileOutputStream(
+                "BookingSystem/src/saveFile/reservationInfo.txt")) {
+            SelectedReserv selectedReserv = new SelectedReserv(reserv.getUserName(), reserv.getUserSport(),
+                    reserv.getUserPlace(), reserv.getUserDate(), reserv.getUserTime(),
+                    reserv.getUserTimeIndex(), reserv.getUserTotal(), reserv.isRent(), reserv.isParking());
+            reservationFile.add(selectedReserv);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(reservationFile);
+            System.out.println("성공");
+            for (SelectedReserv selectedReserv1 : reservationFile) {
+                System.out.println(selectedReserv1+"\n");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (RuntimeException e) {
+            System.out.println("오류");
+        }
+    }
 
 }
 
