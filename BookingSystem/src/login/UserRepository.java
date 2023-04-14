@@ -27,7 +27,7 @@ public class UserRepository {
     }
 
     // userInfo load 함수
-    public static void loadSaveFile() {
+    public static List<MemberShipUserInfo> loadSaveFile() {
 
         try (FileInputStream fis
                      = new FileInputStream(
@@ -47,6 +47,8 @@ public class UserRepository {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        }finally {
+            return info;
         }
     }
 

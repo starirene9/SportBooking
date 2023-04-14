@@ -7,10 +7,7 @@ import sportsFacArea.SportAreaRepository;
 import memberShipUserSystem.MemberShipUserRepository;
 import memberShipUserSystem.MemberShipUserInfo;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +33,6 @@ public class MyPageView {
     public static void start() {
         while (true) {
             showLoginSuccess();
-            showMyPageMain();
             selectMenu();
         }
     }
@@ -51,7 +47,6 @@ public class MyPageView {
         System.out.println("#2 Mypage로 이동");
         System.out.println("#0. 로그아웃");
         makeLine();
-
         String num;
         num = input(">>");
         switch (num) {
@@ -60,7 +55,7 @@ public class MyPageView {
                 bookingView.areaStart();
                 break;
             case "2":
-                myPageStart();
+                selectMenu();
                 break;
             case "0":
                 login.UserView userView = new login.UserView();
@@ -72,28 +67,16 @@ public class MyPageView {
         }
     }
 
-    /*
-     * 마이페이지 스타트 구간
-     */
-    private static void myPageStart() {
-        showMyPageMain();
-        selectMenu();
-    }
 
-    /*
-     * 마이페이지 메인 화면
-     */
-    private static void showMyPageMain() {
-        System.out.println("=====[ My Page ]=====");
-        System.out.println("1. 회원 정보 수정");
-        System.out.println("2. 예약 내역 보기");
-        makeLine();
-    }
 
     /*
      * 마이페이지 선택 메뉴
      */
     private static void selectMenu() {
+        System.out.println("=====[ My Page ]=====");
+        System.out.println("1. 회원 정보 수정");
+        System.out.println("2. 예약 내역 보기");
+        makeLine();
         String menuNum = input(">> ");
         switch (menuNum) {
             case "1":
@@ -125,11 +108,10 @@ public class MyPageView {
         System.out.println("거주지 : " + myInfo.getUserArea());
         System.out.println("전화번호 : " + myInfo.getUserPhoneNum());
 
-        // 이정보를 memberShipUserRepository 로 보내고
-        MemberShipUserRepository.upDateInfo(myInfo);
 
 
     }
+
 
     /*
      * 개인 정보 수정 받는 화면 : 아이디, 이름, 생년월일 제외한 비번, 전화번호,거주지
@@ -155,11 +137,10 @@ public class MyPageView {
                 myInfo.setUserPwd(newPwd);
                 System.out.println("========수정후 객체정보======");
                 System.out.println(myInfo + "/n");
-                System.out.println("========수정후 객체정보======");
+                System.out.println("===========================");
                 //userInfo에저장된 객체를 지우는 기능
                 ur.deleteUserInfo(myInfo);
                 System.out.println("비밀번호가 변경되었습니다.");
-
                 showMyInfo();
                 break;
             case "2":
@@ -202,8 +183,16 @@ public class MyPageView {
 //        stop();
         //예약 내역 불러오기
         System.out.printf("=====[%s]님의 예약 완료 내역=====\n", myInfo.getUserName());
-//        SelectedReserv selectedReserv = new SelectedReserv();
-//        selectedReserv.info();
+//         approvedList();
+//        for (SelectedReserv app : approved) {
+//            if(app.getUserName().equals(myInfo.getUserName())){
+//                System.out.println(app.info());
+//            }else{
+//                System.out.println("예약 내역이 없습니다.");
+//            }
+//        }
+
+
         for (SelectedReserv app : approvedList()) {
             System.out.println(app.info());
         }

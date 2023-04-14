@@ -1,5 +1,7 @@
 package memberShipUserSystem;
 
+import sportsFacArea.SelectedReserv;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,11 +21,13 @@ public class MemberShipUserRepository implements Serializable {
 
     public static void upDateInfo(MemberShipUserInfo myInfo) {
 
-        MemberShipUserInfo wannaDelete = userInfo.stream().filter(t -> t.getUserId().equals(myInfo.getUserId())).collect(Collectors.toList()).get(0);
+        MemberShipUserInfo upDateInfo = userInfo.stream().filter(t -> t.getUserId().equals(myInfo.getUserId())).collect(Collectors.toList()).get(0);
 
-        System.out.println(wannaDelete);
+
+        System.out.println(upDateInfo);
+        System.out.println("2222");
         // id가 중복되는 객체를 지운다.
-        userInfo.remove(wannaDelete);
+        userInfo.remove(upDateInfo);
         System.out.println("객체를 지운 후 ");
         System.out.println(userInfo);
         // 그리고 이객체를넣는다.
@@ -45,13 +49,52 @@ public class MemberShipUserRepository implements Serializable {
         MemberShipUserRepository.userInfo.add(userInfo);
     }
 
+
+
+// 이전 계정들을 로드하는 기능
+    public List<MemberShipUserInfo> loadMemberShipFile() {
+
+        try (FileInputStream fis
+                     = new FileInputStream(
+                "BookingSystem/src/saveFile/memberShipUserInfo.sav")) {
+            // 객체를 불러올 보조스트림
+            ObjectInputStream ois = new ObjectInputStream(fis);
+//             userInfo = (List<SelectedReserv>)ois.readObject();
+//            ;
+//            System.out.println(userInfo);
+
+            userInfo = (List<MemberShipUserInfo>)ois.readObject();
+
+        } catch (FileNotFoundException ex) {
+            System.out.println("파일이 존재하지 않습니다.");
+            ex.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("에러1");
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            System.out.println("에러2");
+            e.printStackTrace();
+        }
+        return userInfo;
+    }
+
+
+
+
+
+
+
+
+
     // 수정되기전 객체를 userInfo 에서 찾아서 지우는 기능
     public void deleteUserInfo(MemberShipUserInfo myInfo) {
-        for (int i =  userInfo.toArray().length-1; i >=0; i--) {
+        loadMemberShipFile();
+        for (int i =  userInfo.size()-1; i >=0; i--) {
             if(userInfo.get(i).getUserId().equals(myInfo.getUserId())){
                 userInfo.remove(userInfo.get(i));
             }
         }
+        userInfo.add(myInfo);
 
 //        for (MemberShipUserInfo checkInfo : userInfo) {
 //            if(checkInfo.getUserId().equals(myInfo.getUserId())){
@@ -63,8 +106,13 @@ public class MemberShipUserRepository implements Serializable {
             System.out.println(memberShipUserInfo + "\n");
         }
         System.out.println("==========================================");
+        makeSaveFile();
 
     }
+
+
+
+
 
     // 수정후 객체를 userInfo 에 추가하는 기능
     public void newLoad(MemberShipUserInfo myInfo) {

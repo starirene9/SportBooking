@@ -34,6 +34,7 @@ public class AdminPreReservedView {
 
     // 확인받은 예약을 저장하는 함수
     public void makeSelectedListSave(List<SelectedReserv> selectedList) { // 예약 리스트를 save파일에 저장하는 메서드
+
         try (FileOutputStream fos
                      = new FileOutputStream(
                 "BookingSystem/src/saveFile/approvedList.txt")) {
