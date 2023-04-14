@@ -7,6 +7,7 @@ import sportsFacArea.sportrentlist.SoccerRentList;
 import sportsFacArea.sportrentlist.SwimRentList;
 
 import java.io.*;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ public class BookingView {
     static SoccerRentList soccerRentList;
     static BasketRentList basketRentList;
     static SwimRentList swimRentList;
+    static Calendar calendar;
 
     static MemberShipUserInfo myInfo;
 
@@ -36,6 +38,7 @@ public class BookingView {
 //        myInfo = new userSys.UserInfo();
         basketRentList = new BasketRentList();
         swimRentList = new SwimRentList();
+        calendar = Calendar.getInstance();
     }
 
     public void areaStart() { // 지역 정하기
@@ -132,7 +135,7 @@ public class BookingView {
     }
 
     public int ageDisCount(){
-        if (Integer.parseInt(myInfo.getUserAge().substring(0,2)) < 25) return 10;
+        int userAge = Integer.parseInt(myInfo.getUserAge().substring(0,4));
         return 0;
     }
     public int placeDisCount(){
