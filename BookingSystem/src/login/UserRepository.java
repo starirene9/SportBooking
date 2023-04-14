@@ -35,12 +35,12 @@ public class UserRepository {
 
             // 객체를 불러올 보조스트림
             ObjectInputStream ois = new ObjectInputStream(fis);
-            List<MemberShipUserInfo> userInfo = (List<MemberShipUserInfo>)ois.readObject();
+            List<MemberShipUserInfo> userInfo = (List<MemberShipUserInfo>) ois.readObject();
             for (MemberShipUserInfo userObj : userInfo) {
                 info.add(userObj);
 
             }
-            System.out.println(info+"불러옴");
+            System.out.println(info + "불러옴");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -102,10 +102,11 @@ public class UserRepository {
             }
         } catch (IndexOutOfBoundsException e) {
             System.out.println("존재하는 회원정보가 없습니다.");
-            whileloop:while (true) {
-                String back=input("처음화면으로 돌아가시겠습니까?[Y/N]");
-                uv=new UserView();
-                switch (back.toUpperCase().charAt(0)){
+            whileloop:
+            while (true) {
+                String back = input("처음화면으로 돌아가시겠습니까?[Y/N]");
+                uv = new UserView();
+                switch (back.toUpperCase().charAt(0)) {
                     case 'Y':
                         uv.inputUserinfo();
                         break whileloop;

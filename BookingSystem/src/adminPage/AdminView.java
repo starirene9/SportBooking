@@ -7,13 +7,14 @@ import static login.Utility.input;
 
 public class AdminView {
     AdminRepository ar;
+    AdminPreReservedView aprv;
 
 
     public void adminMenu() {
         System.out.println("===========Admin 계정=============");
         System.out.println("#1. 시설예약 목록");
         System.out.println("#0. 로그아웃");
-
+        aprv=new AdminPreReservedView();
         whileloop:while (true) {
             String adminInputNum = input(">>");
             switch (adminInputNum) {
@@ -21,6 +22,7 @@ public class AdminView {
                     System.out.println("예약목록을 보여드립니다.");
                     ar=new AdminRepository();
                     ar.loadReservationFile();
+                    aprv.showPreList();
                     break whileloop;
                 case "0":
                     System.out.println("로그아웃 하시겠습니까?[Y/N]");

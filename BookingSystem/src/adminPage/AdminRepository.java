@@ -24,10 +24,6 @@ public class AdminRepository {
 //            System.out.println(userInfo);
             System.out.println("여기");
             userInfo = (List<SelectedReserv>)ois.readObject();
-            for (int i = 0; i < userInfo.size(); i++) {
-                SelectedReserv userObj = userInfo.get(i);
-                System.out.println(i+1+". "+userObj.info());
-            }
 
         } catch (FileNotFoundException ex) {
             System.out.println("파일이 존재하지 않습니다.");
@@ -41,6 +37,8 @@ public class AdminRepository {
         }
         return userInfo;
     }
+
+
 
     // 수락한 예약정보 객체를 save 하는 기능
     void saveAcceptReservation(){

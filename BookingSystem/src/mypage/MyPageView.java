@@ -7,6 +7,13 @@ import sportsFacArea.SportAreaRepository;
 import memberShipUserSystem.MemberShipUserRepository;
 import memberShipUserSystem.MemberShipUserInfo;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.List;
+
 import static login.Utility.*;
 import static memberShipUserSystem.MemberShipUserView.checkPhoneNum;
 import static memberShipUserSystem.MemberShipUserView.stringLength;
@@ -18,10 +25,12 @@ public class MyPageView {
     private static SportAreaRepository sr; // 예약내역
     private static MemberShipUserInfo myInfo; // 회원 정보 객체
 
+    static List<SelectedReserv> approved;
+
     static {
         ur = new MemberShipUserRepository();
         sr = new SportAreaRepository();
-        myInfo=new MemberShipUserInfo();
+        myInfo = new MemberShipUserInfo();
     }
 
     public static void start() {
@@ -109,19 +118,19 @@ public class MyPageView {
     private static void showMyInfo() {
         System.out.println("\n# ====회원 정보====");
 
-            System.out.println("아이디 : "+ myInfo.getUserId());
-            System.out.println("비밀번호 : "+ myInfo.getUserPwd());
-            System.out.println("이름 : "+ myInfo.getUserName());
-            System.out.println("나이 : "+ myInfo.getUserAge());
-            System.out.println("거주지 : "+ myInfo.getUserArea());
-            System.out.println("전화번호 : "+ myInfo.getUserPhoneNum());
+        System.out.println("아이디 : " + myInfo.getUserId());
+        System.out.println("비밀번호 : " + myInfo.getUserPwd());
+        System.out.println("이름 : " + myInfo.getUserName());
+        System.out.println("나이 : " + myInfo.getUserAge());
+        System.out.println("거주지 : " + myInfo.getUserArea());
+        System.out.println("전화번호 : " + myInfo.getUserPhoneNum());
 
-            // 이정보를 memberShipUserRepository 로 보내고
-            MemberShipUserRepository.upDateInfo(myInfo);
-
+        // 이정보를 memberShipUserRepository 로 보내고
+        MemberShipUserRepository.upDateInfo(myInfo);
 
 
     }
+
     /*
      * 개인 정보 수정 받는 화면 : 아이디, 이름, 생년월일 제외한 비번, 전화번호,거주지
      */
@@ -131,7 +140,7 @@ public class MyPageView {
 
         //회원에게 수정할 정보 입력 받고 변경 하는 기능
         switch (choice) {
-            case "1" :
+            case "1":
                 System.out.println("새로운 비밀번호를 입력하세요.");
                 String newPwd;
                 while (true) {
@@ -145,7 +154,7 @@ public class MyPageView {
                 }
                 myInfo.setUserPwd(newPwd);
                 System.out.println("========수정후 객체정보======");
-                System.out.println(myInfo+"/n");
+                System.out.println(myInfo + "/n");
                 System.out.println("========수정후 객체정보======");
                 //userInfo에저장된 객체를 지우는 기능
                 ur.deleteUserInfo(myInfo);
@@ -192,10 +201,42 @@ public class MyPageView {
         System.out.println("\n# 예약 내역 보기를 선택하셨습니다.");
 //        stop();
         //예약 내역 불러오기
-        System.out.printf("=====[%s]님의 예약 내역=====", myInfo.getUserName());
-        SelectedReserv selectedReserv = new SelectedReserv();
-        selectedReserv.info();
+        System.out.printf("=====[%s]님의 예약 완료 내역=====\n", myInfo.getUserName());
+//        SelectedReserv selectedReserv = new SelectedReserv();
+//        selectedReserv.info();
+        for (SelectedReserv app : approvedList()) {
+            System.out.println(app.info());
+        }
         myPageExit(); //화면 나가기
+
+    }
+
+
+    public static List<SelectedReserv> approvedList() {
+        approved = new ArrayList<>();
+        try (FileInputStream fis
+                     = new FileInputStream(
+                "BookingSystem/src/saveFile/approvedList.txt")) {
+            // 객체를 불러올 보조스트림
+            ObjectInputStream ois = new ObjectInputStream(fis);
+//             userInfo = (List<SelectedReserv>)ois.readObject();
+//            ;
+//            System.out.println(userInfo);
+
+            approved = (List<SelectedReserv>) ois.readObject();
+
+        } catch (FileNotFoundException ex) {
+            System.out.println("파일이 존재하지 않습니다.");
+            ex.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("에러1");
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            System.out.println("에러2");
+            e.printStackTrace();
+        } finally {
+            return approved;
+        }
 
     }
 
