@@ -18,6 +18,7 @@ public class MyPageView {
     static {
         ur = new MemberShipUserRepository();
         sr = new SportAreaRepository();
+        myInfo=new MemberShipUserInfo();
     }
 
     public static void start() {
@@ -104,17 +105,18 @@ public class MyPageView {
      */
     private static void showMyInfo() {
         System.out.println("\n# ====회원 정보====");
-        try {
+
             System.out.println("아이디 : "+ myInfo.getUserId());
             System.out.println("비밀번호 : "+ myInfo.getUserPwd());
             System.out.println("이름 : "+ myInfo.getUserName());
             System.out.println("나이 : "+ myInfo.getUserAge());
             System.out.println("거주지 : "+ myInfo.getUserArea());
             System.out.println("전화번호 : "+ myInfo.getUserPhoneNum());
-        } catch (Exception e) {
-            System.out.println("기존 회원 정보가 없습니다.");
-            e.printStackTrace();
-        }
+
+            // 이정보를 memberShipUserRepository 로 보내고
+            MemberShipUserRepository.upDateInfo(myInfo);
+
+
 
     }
     /*
@@ -131,6 +133,7 @@ public class MyPageView {
                 String newPwd = input(">> ");
                 myInfo.setUserPwd(newPwd);
                 System.out.println("비밀번호가 변경되었습니다.");
+
                 showMyInfo();
                 break;
             case "2" :
@@ -193,6 +196,7 @@ public class MyPageView {
 
     public static void loginInfo(MemberShipUserInfo userInfo) {
         myInfo=userInfo;
+
     }
 
     public void viewUser(){

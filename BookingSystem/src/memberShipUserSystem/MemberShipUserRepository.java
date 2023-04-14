@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MemberShipUserRepository implements Serializable {
     static List<MemberShipUserInfo> userInfo;
@@ -12,6 +13,28 @@ public class MemberShipUserRepository implements Serializable {
         userInfo = new ArrayList<>(
                 Arrays.asList(new MemberShipUserInfo("admin", "admin", "관리자", "", "", ""))
         );
+    }
+
+
+
+    public static void upDateInfo(MemberShipUserInfo myInfo) {
+
+        MemberShipUserInfo wannaDelete = userInfo.stream().filter(t -> t.getUserId().equals(myInfo.getUserId())).collect(Collectors.toList()).get(0);
+
+        System.out.println(wannaDelete);
+        // id가 중복되는 객체를 지운다.
+        userInfo.remove(wannaDelete);
+        System.out.println("객체를 지운 후 ");
+        System.out.println(userInfo);
+        // 그리고 이객체를넣는다.
+        userInfo.add(myInfo);
+        System.out.println("객체를 넣고난 후");
+        System.out.println(userInfo);
+        // 그리고 세이브
+
+        // 로드하여 확인
+
+
     }
 
     /**
@@ -38,7 +61,7 @@ public class MemberShipUserRepository implements Serializable {
     // 현재 저장된 모든 객체의 정보를 보여주는 함수
     public void showList() {
         for (MemberShipUserInfo info : userInfo) {
-            System.out.println(info);
+            System.out.println(info+"\n");
         }
     }
 
