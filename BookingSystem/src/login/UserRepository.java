@@ -18,6 +18,7 @@ public class UserRepository {
     UserView uv;
     AdminView adminView;
     UserView userview;
+    MemberShipUserInfo userInfo;
 
     static {
         info = new ArrayList<>();
@@ -25,6 +26,7 @@ public class UserRepository {
 
     // userInfo load 함수
     public static void loadSaveFile() {
+
         try (FileInputStream fis
                      = new FileInputStream(
                 "BookingSystem/src/saveFile/memberShipUserInfo.sav")) {
@@ -36,6 +38,7 @@ public class UserRepository {
                 info.add(userObj);
 
             }
+            System.out.println(info+"불러옴");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -55,9 +58,14 @@ public class UserRepository {
      */
     public void loginValidate(String inputId, String inputPwd) {
         loadSaveFile();
-        MemberShipUserInfo userInfo;
+
         try {
+
             userInfo = info.stream().filter(obj -> obj.getUserId().equals(inputId)).collect(Collectors.toList()).get(0);
+
+            //////
+            System.out.println(userInfo);
+
             uv = new UserView();
             if (userInfo.getUserId().equals("admin") && userInfo.getUserPwd().equals("admin")) {
                 System.out.println("관리자 계정으로 로그인 하였습니다.");

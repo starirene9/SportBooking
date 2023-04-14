@@ -8,6 +8,9 @@ import memberShipUserSystem.MemberShipUserRepository;
 import memberShipUserSystem.MemberShipUserInfo;
 
 import static login.Utility.*;
+import static memberShipUserSystem.MemberShipUserView.checkPhoneNum;
+import static memberShipUserSystem.MemberShipUserView.stringLength;
+import static memberShipUserSystem.Utility.input;
 
 public class MyPageView {
 
@@ -29,10 +32,10 @@ public class MyPageView {
     }
 
     /*
-    * 로그인 성공 후 보여지는 메인 화면
+     * 로그인 성공 후 보여지는 메인 화면
      */
 
-    private static void showLoginSuccess(){
+    private static void showLoginSuccess() {
         System.out.println("==========[Menu]==========");
         System.out.println("#1 시설 예약하기");
         System.out.println("#2 Mypage로 이동");
@@ -40,17 +43,17 @@ public class MyPageView {
         makeLine();
 
         String num;
-        num=input(">>");
-        switch (num){
+        num = input(">>");
+        switch (num) {
             case "1":
-                BookingView bookingView=new BookingView();
+                BookingView bookingView = new BookingView();
                 bookingView.areaStart();
                 break;
             case "2":
                 myPageStart();
                 break;
             case "0":
-                login.UserView userView= new login.UserView();
+                login.UserView userView = new login.UserView();
                 userView.inputUserinfo();
                 break;
             default:
@@ -105,18 +108,19 @@ public class MyPageView {
     private static void showMyInfo() {
         System.out.println("\n# ====회원 정보====");
         try {
-            System.out.println("아이디 : "+ myInfo.getUserId());
-            System.out.println("비밀번호 : "+ myInfo.getUserPwd());
-            System.out.println("이름 : "+ myInfo.getUserName());
-            System.out.println("나이 : "+ myInfo.getUserAge());
-            System.out.println("거주지 : "+ myInfo.getUserArea());
-            System.out.println("전화번호 : "+ myInfo.getUserPhoneNum());
+            System.out.println("아이디 : " + myInfo.getUserId());
+            System.out.println("비밀번호 : " + myInfo.getUserPwd());
+            System.out.println("이름 : " + myInfo.getUserName());
+            System.out.println("나이 : " + myInfo.getUserAge());
+            System.out.println("거주지 : " + myInfo.getUserArea());
+            System.out.println("전화번호 : " + myInfo.getUserPhoneNum());
         } catch (Exception e) {
             System.out.println("기존 회원 정보가 없습니다.");
             e.printStackTrace();
         }
 
     }
+
     /*
      * 개인 정보 수정 받는 화면 : 아이디, 이름, 생년월일 제외한 비번, 전화번호,거주지
      */
@@ -126,25 +130,59 @@ public class MyPageView {
 
         //회원에게 수정할 정보 입력 받고 변경 하는 기능
         switch (choice) {
-            case "1" :
+            case "1":
                 System.out.println("새로운 비밀번호를 입력하세요.");
-                String newPwd = input(">> ");
+                String newPwd;
+                while (true) {
+                    newPwd = input("# 비밀번호(최대 13자) : ");
+                    // 비밀번호 글자수 13이하로 제한
+                    if (stringLength(newPwd, 13)) {
+                        break;
+                    } else {
+                        System.out.println("비밀번호가 너무 깁니다. 10이하로 적어주세요");
+                    }
+                }
                 myInfo.setUserPwd(newPwd);
+                System.out.println("========수정후 객체정보======");
+                System.out.println(myInfo+"/n");
+                System.out.println("========수정후 객체정보======");
+                //userInfo에저장된 객체를 지우는 기능
+                ur.deleteUserInfo(myInfo);
                 System.out.println("비밀번호가 변경되었습니다.");
+
+                //myInfo에 저장된 객체를 MemberShipUserRepository로 정보를 보내주는 기능
+                ur.newLoad(myInfo);
+
                 showMyInfo();
                 break;
-            case "2" :
+            case "2":
                 System.out.println("새로운 거주지를 입력하세요.");
                 String newPlace = input(">> ");
                 myInfo.setUserArea(newPlace);
+                //userInfo에저장된 객체를 지우는 기능
+                ur.deleteUserInfo(myInfo);
                 System.out.println("거주지가 변경되었습니다.");
+                //myInfo에 저장된 객체를 MemberShipUserRepository로 정보를 보내주는 기능
+                ur.newLoad(myInfo);
                 showMyInfo();
                 break;
-            case "3" :
+            case "3":
                 System.out.println("새로운 전화번호를 입력하세요.");
-                String newPhone = input(">> ");
+                String newPhone;
+
+                while (true) {
+                    newPhone = input("# 핸드폰 번호(-포함) : ");
+                    // 올바른 값 확인
+                    if (checkPhoneNum(newPhone)) {
+                        break;
+                    }
+                }
                 myInfo.setUserPhoneNum(newPhone);
+                //userInfo에저장된 객체를 지우는 기능
+                ur.deleteUserInfo(myInfo);
                 System.out.println("전화번호가 변경되었습니다.");
+                //myInfo에 저장된 객체를 MemberShipUserRepository로 정보를 보내주는 기능
+                ur.newLoad(myInfo);
                 showMyInfo();
                 break;
             default:
@@ -153,6 +191,8 @@ public class MyPageView {
         }
 
     }
+
+
 
     /*
      * 예약 내역 보기
@@ -163,7 +203,7 @@ public class MyPageView {
 //        stop();
         //예약 내역 불러오기
         System.out.printf("=====[%s]님의 예약 내역=====", myInfo.getUserName());
-        SelectedReserv selectedReserv=new SelectedReserv();
+        SelectedReserv selectedReserv = new SelectedReserv();
         selectedReserv.info();
         myPageExit(); //화면 나가기
 
@@ -192,14 +232,8 @@ public class MyPageView {
     }
 
     public static void loginInfo(MemberShipUserInfo userInfo) {
-        myInfo=userInfo;
+        myInfo = userInfo;
     }
-
-    public void viewUser(){
-        System.out.println(myInfo);
-        System.out.println("값 넘어갔습니다.");
-    }
-
 
 
 }

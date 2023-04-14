@@ -164,6 +164,8 @@ public class BookingView {
                 break;
         }
 //        int total = allTotal - (allTotal / ageDiscount) + allTotal - (allTotal / placeDiscount);
+        ageDiscount=5;
+        placeDiscount=5;
         int total = (allTotal - (allTotal / ageDiscount)) + (allTotal - (allTotal / placeDiscount));
         System.out.println(total);
         reserv.setUserTotal(total);
