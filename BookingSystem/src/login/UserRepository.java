@@ -16,19 +16,19 @@ import java.util.stream.Collectors;
 import static memberShipUserSystem.Utility.input;
 
 public class UserRepository {
-    public static List<MemberShipUserInfo> info;
+    public  List<MemberShipUserInfo> info;
     UserView uv;
     AdminView adminView;
     UserView userview;
     MemberShipUserInfo userInfo;
 
     static {
-        info = new ArrayList<>();
+//        info = new ArrayList<>();
     }
 
     // userInfo load 함수
-    public static List<MemberShipUserInfo> loadSaveFile() {
-
+    public  List<MemberShipUserInfo> loadSaveFile() {
+        info = new ArrayList<>();
         try (FileInputStream fis
                      = new FileInputStream(
                 "BookingSystem/src/saveFile/memberShipUserInfo.sav")) {
@@ -62,13 +62,15 @@ public class UserRepository {
      */
     public void loginValidate(String inputId, String inputPwd) {
         loadSaveFile();
-
+//        List<MemberShipUserInfo> collect = info.stream().distinct().collect(Collectors.toList());
+//        info=collect;
         try {
 
             userInfo = info.stream().filter(obj -> obj.getUserId().equals(inputId)).collect(Collectors.toList()).get(0);
 
-            //////
+            System.out.println("======로그인 하는 사람의 계정====");
             System.out.println(userInfo);
+            System.out.println("===========================\n");
 
             uv = new UserView();
             if (userInfo.getUserId().equals("admin") && userInfo.getUserPwd().equals("admin")) {

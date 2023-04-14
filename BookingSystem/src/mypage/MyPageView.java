@@ -68,7 +68,6 @@ public class MyPageView {
     }
 
 
-
     /*
      * 마이페이지 선택 메뉴
      */
@@ -109,7 +108,6 @@ public class MyPageView {
         System.out.println("전화번호 : " + myInfo.getUserPhoneNum());
 
 
-
     }
 
 
@@ -147,6 +145,11 @@ public class MyPageView {
                 System.out.println("새로운 거주지를 입력하세요.");
                 String newPlace = input(">> ");
                 myInfo.setUserArea(newPlace);
+                System.out.println("========수정후 객체정보======");
+                System.out.println(myInfo + "/n");
+                System.out.println("===========================");
+                //userInfo에저장된 객체를 지우는 기능
+                ur.deleteUserInfo(myInfo);
                 System.out.println("거주지가 변경되었습니다.");
                 showMyInfo();
                 break;
@@ -162,6 +165,11 @@ public class MyPageView {
                     }
                 }
                 myInfo.setUserPhoneNum(newPhone);
+                System.out.println("========수정후 객체정보======");
+                System.out.println(myInfo + "/n");
+                System.out.println("===========================");
+                //userInfo에저장된 객체를 지우는 기능
+                ur.deleteUserInfo(myInfo);
                 System.out.println("전화번호가 변경되었습니다.");
                 showMyInfo();
                 break;
