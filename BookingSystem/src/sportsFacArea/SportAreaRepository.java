@@ -55,6 +55,8 @@ public class SportAreaRepository {
             list.add(reserv);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(list);
+            System.out.println(reserv);
+            System.out.println(list);
             System.out.println("성공");
         } catch (IOException e) {
             throw new RuntimeException(e);

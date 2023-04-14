@@ -1,5 +1,6 @@
 package adminPage;
 
+import memberShipUserSystem.MemberShipUserInfo;
 import sportsFacArea.SelectedReserv;
 
 import java.io.*;
@@ -17,15 +18,25 @@ public class AdminRepository {
                 "BookingSystem/src/saveFile/reservationInfo.txt")) {
             // 객체를 불러올 보조스트림
             ObjectInputStream ois = new ObjectInputStream(fis);
-             userInfo = (List<SelectedReserv>) ois.readObject();
-            System.out.println(userInfo);
+//             userInfo = (List<SelectedReserv>)ois.readObject();
+//            ;
+//            System.out.println(userInfo);
+            System.out.println("여기");
+            userInfo = (List<SelectedReserv>)ois.readObject();
+            for (SelectedReserv userObj : userInfo) {
+                System.out.println(userObj);
+
+            }
 
         } catch (FileNotFoundException ex) {
-            throw new RuntimeException(ex);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            System.out.println("파일이 존재하지 않습니다.");
+            ex.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("에러1");
+            e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("에러2");
+            e.printStackTrace();
         }
 
     }
