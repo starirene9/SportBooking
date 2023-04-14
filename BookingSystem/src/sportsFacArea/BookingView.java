@@ -7,7 +7,7 @@ import sportsFacArea.sportrentlist.SoccerRentList;
 import sportsFacArea.sportrentlist.SwimRentList;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +23,7 @@ public class BookingView {
     static SoccerRentList soccerRentList;
     static BasketRentList basketRentList;
     static SwimRentList swimRentList;
+    static Calendar calendar;
 
     static MemberShipUserInfo myInfo;
 
@@ -37,6 +38,7 @@ public class BookingView {
 //        myInfo = new userSys.UserInfo();
         basketRentList = new BasketRentList();
         swimRentList = new SwimRentList();
+        calendar = Calendar.getInstance();
     }
 
     public void areaStart() { // 지역 정하기
@@ -133,7 +135,7 @@ public class BookingView {
     }
 
     public int ageDisCount(){
-        if (Integer.parseInt(myInfo.getUserAge().substring(0,2)) < 25) return 10;
+        int userAge = Integer.parseInt(myInfo.getUserAge().substring(0,4));
         return 0;
     }
     public int placeDisCount(){
@@ -141,37 +143,63 @@ public class BookingView {
         return 0;
     }
 
+    public void showTotalPrice(int allTotal){
+        int academyDiscount = 0;
+        switch (input("중앙정보처리학원을 다니십니까? [y/n] ").toUpperCase().charAt(0)){
+            case 'Y':
+                System.out.println("추가 30%할인 적용되었습니다!");
+                academyDiscount = allTotal / 30;
+                break;
+            case 'N':
+                break;
+            default:
+                System.out.println("잘못된 입력입니다");
+                showTotalPrice(allTotal);
+        }
+        int ageDiscount = 0;
+        int placeDiscount = 0;
+        if (ageDisCount() != 0) ageDiscount = allTotal / ageDisCount();
+        if (placeDisCount() != 0) placeDiscount = allTotal / placeDisCount();
+
+        int total = allTotal - (ageDiscount + placeDiscount + academyDiscount);
+
+        System.out.println("학생 할인 : "+ageDisCount() + "%");
+        System.out.println("지역 할인 : "+placeDisCount()+ "%");
+
+        reserv.setUserTotal(total);
+        System.out.printf("결제할 총 금액 : %d원\n", reserv.getUserTotal());
+    }
+
     public void reservationInfo() { // 예약 정보들 출력 메서드
         System.out.println("\n      [ 예약 정보 확인 ]");
         reserv.setUserName(myInfo.getUserName());
         System.out.println(reserv.info());
-        int ageDiscount = ageDisCount();
-        int placeDiscount = placeDisCount();
-        int count = 0;
+        System.out.println("\n      [ 가 격 표 ]");
         int allTotal = 0;
         switch (reserv.getUserSport()) {
             case "축구장":
-                count = soccerRentList.rentCount(); // 대여한 물품의 개수 출력 메서드
+//                count = soccerRentList.rentCount(); // 대여한 물품의 개수 출력 메서드
                 allTotal = soccerRentList.rentTotal(); // 대여한 물품들의 가격 계산 메서드
+                System.out.println("구장 비용은 100,000원입니다!");
+                System.out.println(soccerRentList.allInfo());
+                System.out.printf("대여한 물품의 총 가격 : %d\n",soccerRentList.rentCount());
                 break;
             case "농구장":
-                count = basketRentList.rentCount(); // 대여한 물품의 개수 출력 메서드
+//                count = basketRentList.rentCount(); // 대여한 물품의 개수 출력 메서드
                 allTotal = basketRentList.rentTotal(); // 대여한 물품들의 가격 계산 메서드
+                System.out.println("구장 비용은 100,000원입니다!");
+                System.out.println(basketRentList.allInfo());
+                System.out.printf("대여한 물품의 총 가격 : %d\n",basketRentList.rentCount());
                 break;
             case "수영장":
-                count = swimRentList.rentCount(); // 대여한 물품의 개수 출력 메서드
+//                count = swimRentList.rentCount(); // 대여한 물품의 개수 출력 메서드
                 allTotal = swimRentList.rentTotal(); // 대여한 물품들의 가격 계산 메서드
+                System.out.println("구장 비용은 20,000원입니다!");
+                System.out.println(swimRentList.allInfo());
+                System.out.printf("대여한 물품의 총 가격 : %d\n",swimRentList.rentCount());
                 break;
         }
-//        int total = allTotal - (allTotal / ageDiscount) + allTotal - (allTotal / placeDiscount);
-        ageDiscount=5;
-        placeDiscount=5;
-        int total = (allTotal - (allTotal / ageDiscount)) + (allTotal - (allTotal / placeDiscount));
-        System.out.println(total);
-        reserv.setUserTotal(total);
-        System.out.printf("총 대여한 물품의 개수 : %d개\n", count);
-        System.out.printf("총 대여한 물품의 가격 : %d원\n", allTotal);
-        System.out.printf("총 금액 : %d원\n", reserv.getUserTotal());
+        showTotalPrice(allTotal);
     }
 
     public int timeInterval(String inputDay) { // 예약 시간 정하기 메서드
@@ -198,7 +226,7 @@ public class BookingView {
                 if (reserv.getUserSport().equals("축구장"))
                     soccerRentList.soccerRentList(); // 축구장 렌트 물품 보여주는 메서드
                 else if (reserv.getUserSport().equals("농구장"))
-                    basketRentList.basketRentList(); // 축구장 렌트 물품 보여주는 메서드
+                    basketRentList.basketRentList(); // 농구장 렌트 물품 보여주는 메서드
                 else if (reserv.getUserSport().equals("수영장"))
                     swimRentList.swimRentList(); // 수영장 렌트 물품 보여주는 메서드
                 break;
@@ -211,39 +239,6 @@ public class BookingView {
         return isRent;
     }
 
-//    private void soccerRentList() { // 축구장 렌트할 물건 보여주고 입력받기
-//        System.out.println("1. 축구 유니폼 [개당 1000원]");
-//        System.out.println("2. 축구화 [개당 2000원]");
-//        System.out.println("3. 축구공 [개당 1000원]");
-//        System.out.println("4. 종료");
-//
-//        String inputRentNum = input("# 빌릴 물건을 번호로 입력하세요 >> ");
-//        try {
-//            switch (inputRentNum){
-//                case "1":
-//                    soccerRentList.setSoccerUniform(Integer.parseInt(input("빌릴 유니폼의 갯수를 입력하세요 >> ")));
-//                    soccerRentList();
-//                    break;
-//                case "2":
-//                    soccerRentList.setSoccerShoes(Integer.parseInt(input("빌릴 축구화 갯수를 입력하세요 >> ")));
-//                    soccerRentList();
-//                    break;
-//                case "3":
-//                    soccerRentList.setSoccerBall(Integer.parseInt(input("빌릴 축구공 갯수를 입력하세요 >> ")));
-//                    soccerRentList();
-//                    break;
-//                case "4":
-//                    break;
-//                default:
-//                    System.out.println("잘못된 입력입니다");
-//                    soccerRentList();
-//            }
-//        }catch (NumberFormatException e){
-//            System.out.println("잘못된 입력입니다");
-//            soccerRentList();
-//        }
-//
-//    }
 
     public boolean parkCoupon() { // 주차 유무 확인 후 쿠폰 지금
         String inputParking = input("# 주차 쿠폰을 발행하시겠습니까? [y/n] ");
@@ -260,7 +255,6 @@ public class BookingView {
         }
         return isParking;
     }
-
 
     public static void loadSaveFile() {
         try (FileInputStream fis
@@ -281,7 +275,6 @@ public class BookingView {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
     public static void loginInfo(MemberShipUserInfo userInfo) {
