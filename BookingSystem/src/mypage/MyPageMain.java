@@ -4,7 +4,8 @@ public class MyPageMain {
 
     public static void main(String[] args) {
 
-      MyPageView.start();
+      MyPageView mv = new MyPageView();
+      mv.start();
 
 //        MyPageView mypage=new MyPageView();
 //        mypage.viewUser();

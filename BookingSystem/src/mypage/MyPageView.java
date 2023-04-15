@@ -31,7 +31,7 @@ public class MyPageView {
         myInfo = new MemberShipUserInfo();
     }
 
-    public static void start() {
+    public void start() {
         while (true) {
             showLoginSuccess();
             selectMenu();
@@ -42,7 +42,7 @@ public class MyPageView {
      * 로그인 성공 후 보여지는 메인 화면
      */
 
-    public static void showLoginSuccess() {
+    public void showLoginSuccess() {
         System.out.println("==========[Menu]==========");
         System.out.println("#1 시설 예약하기");
         System.out.println("#2 Mypage로 이동");
@@ -72,7 +72,7 @@ public class MyPageView {
     /*
      * 마이페이지 선택 메뉴
      */
-    private static void selectMenu() {
+    private void selectMenu() {
         System.out.println("=====[ My Page ]=====");
         System.out.println("1. 회원 정보 수정");
         System.out.println("2. 예약 내역 보기");
@@ -205,31 +205,29 @@ public class MyPageView {
      * 예약 내역 보기
      */
 
-    private static void seeMyBooking() {
+    private void seeMyBooking() {
         System.out.println("\n# 예약 내역 보기를 선택하셨습니다.");
 //        stop();
         //예약 내역 불러오기
         System.out.printf("=====[%s]님의 예약 완료 내역=====\n", myInfo.getUserName());
-//         approvedList();
-//        for (SelectedReserv app : approved) {
-//            if(app.getUserName().equals(myInfo.getUserName())){
-//                System.out.println(app.info());
-//            }else{
-//                System.out.println("예약 내역이 없습니다.");
-//            }
-//        }
-
-
-        for (SelectedReserv app : loadApprovedList()) {
-            System.out.println(app.info());
+        List<SelectedReserv> approvedList = loadApprovedList();
+        for (SelectedReserv app : approvedList) {
+            if(app.getUserName().equals(myInfo.getUserName())){
+                System.out.println(app.info());
+            }
         }
+
+
+//        for (SelectedReserv app : loadApprovedList()) {
+//            System.out.println(app.info());
+//        }
         myPageExit(); //화면 나가기
 
     }
 
 
-    public static List<SelectedReserv> loadApprovedList() {
-        approved = new ArrayList<>();
+    public List<SelectedReserv> loadApprovedList() {
+        List<SelectedReserv> userInfo = new ArrayList<>();
         try (FileInputStream fis
                      = new FileInputStream(
                 "BookingSystem/src/saveFile/approvedList.txt")) {
@@ -238,8 +236,8 @@ public class MyPageView {
 //             userInfo = (List<SelectedReserv>)ois.readObject();
 //            ;
 //            System.out.println(userInfo);
-
-            approved = (List<SelectedReserv>) ois.readObject();
+            System.out.println("여기");
+            userInfo = (List<SelectedReserv>)ois.readObject();
 
         } catch (FileNotFoundException ex) {
             System.out.println("파일이 존재하지 않습니다.");
@@ -250,17 +248,15 @@ public class MyPageView {
         } catch (ClassNotFoundException e) {
             System.out.println("에러2");
             e.printStackTrace();
-        } finally {
-            return approved;
         }
-
+        return userInfo;
     }
 
     /*
      * 메뉴 화면으로 돌아가기 혹은 마이페이지 선택지에 머무르는 화면
      */
 
-    private static void myPageExit() {
+    private void myPageExit() {
         System.out.println("\n# 마이페이지를 나가시겠습니까? [ y/n ]");
         String answer = input(">> ");
 

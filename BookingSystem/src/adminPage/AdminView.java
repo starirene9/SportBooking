@@ -20,8 +20,8 @@ public class AdminView {
             switch (adminInputNum) {
                 case "1":
                     System.out.println("예약목록을 보여드립니다.");
-                    ar=new AdminRepository();
-                    ar.loadReservationFile();
+//                    ar=new AdminRepository();
+//                    ar.loadReservationFile();
                     aprv.showPreList();
                     break whileloop;
                 case "0":

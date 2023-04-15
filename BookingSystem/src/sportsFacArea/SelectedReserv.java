@@ -3,6 +3,7 @@ package sportsFacArea;
 import java.io.Serializable;
 
 public class SelectedReserv implements Serializable {
+    private static final long serialVersionUID = 2169075744353113048L;
 
     private String userName;
     private String userSport;
@@ -117,6 +118,10 @@ public class SelectedReserv implements Serializable {
     public String info(){
         return String.format("회원이름 : %s\t| 지역 : 서울시 %s\t| 체육시설 : %s\t| 예약날짜 : 5월 %s일\t| 예약시간 : %s (2시간)\t| 총 결제 금액 : %d원"
                 , userName,userPlace,userSport,userDate,userTime,userTotal);
+    }
+    public String inform(){
+        return String.format("회원이름 : %s\n지역 : 서울시 %s\n체육시설 : %s\n예약날짜 : 5월 %s일\n예약시간 : %s (2시간)\n주차 쿠폰 발급 : %b"
+                , userName,userPlace,userSport,userDate,userTime,isParking);
     }
 
 }

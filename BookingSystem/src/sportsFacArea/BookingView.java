@@ -3,16 +3,18 @@ package sportsFacArea;
 import adminPage.AdminRepository;
 import login.UserInfo;
 import memberShipUserSystem.MemberShipUserInfo;
+import mypage.MyPageView;
 import sportsFacArea.sportrentlist.BasketRentList;
 import sportsFacArea.sportrentlist.SoccerRentList;
 import sportsFacArea.sportrentlist.SwimRentList;
 
 import java.io.*;
-import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
 
 import static login.Utility.input;
-import static mypage.MyPageView.showLoginSuccess;
 
 public class BookingView {
 
@@ -28,6 +30,7 @@ public class BookingView {
 
     static MemberShipUserInfo myInfo;
     static AdminRepository adminRepository;
+    static MyPageView myPageView;
 
     static {
         repository = new SportAreaRepository();
@@ -41,6 +44,7 @@ public class BookingView {
         basketRentList = new BasketRentList();
         swimRentList = new SwimRentList();
         calendar = Calendar.getInstance();
+        myPageView = new MyPageView();
     }
 
     public void areaStart() { // 지역 정하기
@@ -123,8 +127,15 @@ public class BookingView {
     }
     public int timeInterval(String inputDay) { // 예약 시간 정하기 메서드
         System.out.println("\n5월 " + inputDay + "일 운영시간 [ 10:00 ~ 22:00 ] 2시간 단위");
-        Map<String, TimeList> timeListMap = date.callMap();
-        TimeList timeList = timeListMap.get(inputDay);
+        List<SelectedReserv> selectedReservList = myPageView.loadApprovedList(); // 예약완료된 세이브파일 불러옴
+        Map<String, TimeList> timeListMap = date.callMap(); // 날짜를 map에 저장
+        TimeList timeList = timeListMap.get(inputDay); // 해당 날짜의 시간대 불러오기
+        for (SelectedReserv selectedReserv : selectedReservList) {
+            if (selectedReserv.getUserDate().equals(inputDay) ){ // 해당 날짜랑 예약완료된 날짜랑 비교 후
+                timeList.dateList.remove(selectedReserv.getUserTimeIndex()); // 맞으면 해당 날짜의 시간대 삭제
+                System.out.println("삭제");
+            }
+        }
         timeList.inform(); // 예약 가능한 시간대 출력
         int inputTime = 0;
         try {
@@ -135,7 +146,6 @@ public class BookingView {
         }
         return inputTime;
     }
-
 
 
     public int ageDisCount(){
@@ -178,7 +188,7 @@ public class BookingView {
     public void reservationInfo() { // 예약 정보들 출력 메서드
         System.out.println("\n      [ 예약 정보 확인 ]");
         reserv.setUserName(myInfo.getUserName());
-        System.out.println(reserv.info());
+        System.out.println(reserv.inform());
         System.out.println("\n      [ 가 격 표 ]");
         int allTotal = 0;
         switch (reserv.getUserSport()) {
@@ -206,10 +216,6 @@ public class BookingView {
         }
         showTotalPrice(allTotal);
     }
-//    public SelectedReserv setReserv(){
-//        return reserv;
-//    }
-
 
 
     public boolean rentStuff() { // 대여물품 렌트 여부
@@ -256,10 +262,10 @@ public class BookingView {
         switch (inputRes.toUpperCase().charAt(0)) {
             case 'Y':
                 makeSaveFile();
-                showLoginSuccess();
+                myPageView.showLoginSuccess();
                 break;
             case 'N':
-                showLoginSuccess();
+                myPageView.showLoginSuccess();
                 break;
             default:
                 System.out.println("잘못된 입력입니다");
@@ -268,37 +274,15 @@ public class BookingView {
 
     }
 
-    public static void loadSaveFile() {
-        try (FileInputStream fis
-                     = new FileInputStream(
-                "BookingSystem/src/saveFile/reservationInfo.txt")) {
-
-            // 객체를 불러올 보조스트림
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            List<MemberShipUserInfo> object = (List<MemberShipUserInfo>) ois.readObject();
-//            userInfo = object;
-//            System.out.println("로드 성공");
-//            System.out.println(userInfo);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static void loginInfo(MemberShipUserInfo userInfo) {
         myInfo=userInfo;
     }
 
-    public void viewUser() {
-        System.out.println(myInfo);
-        System.out.println("값 넘어갔습니다. kh");
-    }
     public void makeSaveFile() { // 예약 리스트를 save파일에 저장하는 메서드
-        List<SelectedReserv> reservationFile = adminRepository.loadReservationFile();
+        List<SelectedReserv> reservationFile = new ArrayList<>();
+        if(adminRepository.loadReservationFile() != null){
+            reservationFile = adminRepository.loadReservationFile();}
         try (FileOutputStream fos
                      = new FileOutputStream(
                 "BookingSystem/src/saveFile/reservationInfo.txt")) {
@@ -315,6 +299,7 @@ public class BookingView {
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (RuntimeException e) {
+            e.printStackTrace();
             System.out.println("오류");
         }
     }
