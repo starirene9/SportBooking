@@ -59,13 +59,13 @@ public class UserView {
 
     public void joinStart() {
 
-//        repository.loadSaveFile();
-//        System.out.println("==========시작시 memberShipUserInfo.sav 에서 로드되는 데이터=====");
-//        for (Object o  : UserRepository.info) {
-//            System.out.println(o+"\n");
-//        }
-//        System.out.println("============================================================");
-//        System.out.println("");
+        repository.loadSaveFile();
+        System.out.println("==========시작시 memberShipUserInfo.sav 에서 로드되는 데이터=====");
+        for (Object o  : UserRepository.info) {
+            System.out.println(o+"\n");
+        }
+        System.out.println("============================================================");
+        System.out.println("");
 
         inputUserinfo();
 

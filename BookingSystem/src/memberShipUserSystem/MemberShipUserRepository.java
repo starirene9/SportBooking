@@ -46,7 +46,14 @@ public class MemberShipUserRepository implements Serializable {
      *                 회원가입시 입력된 정보들을 repository에 저장하는 함수
      */
     void register(MemberShipUserInfo userInfo) {
-        MemberShipUserRepository.userInfo.add(userInfo);
+//        List<MemberShipUserInfo> beforeList = loadMemberShipFile();
+//        System.out.println(beforeList);
+//        beforeList.add(userInfo);
+
+//        MemberShipUserRepository.userInfo.add(userInfo);
+//        System.out.println(beforeList);
+        newLoad(userInfo);
+
     }
 
 
@@ -145,7 +152,7 @@ public class MemberShipUserRepository implements Serializable {
 
 
     // userInfo save 파일 생성 함수
-    public static void makeSaveFile() {
+    public  void makeSaveFile() {
 
         try (FileOutputStream fos
                      = new FileOutputStream(

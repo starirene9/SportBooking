@@ -40,7 +40,7 @@ public class BookingView {
         info = new UserInfo();
         reserv = new SelectedReserv();
         soccerRentList = new SoccerRentList();
-        myInfo=new MemberShipUserInfo();
+        myInfo = new MemberShipUserInfo();
         basketRentList = new BasketRentList();
         swimRentList = new SwimRentList();
         calendar = Calendar.getInstance();
@@ -125,13 +125,15 @@ public class BookingView {
         reserv.setParking(isParking);
         reserv.setUserTime(date.callMap().get(booking.getBookingDay()).dateList.get(booking.getTimeIndex() - 1));
     }
+
     public int timeInterval(String inputDay) { // 예약 시간 정하기 메서드
         System.out.println("\n5월 " + inputDay + "일 운영시간 [ 10:00 ~ 22:00 ] 2시간 단위");
         List<SelectedReserv> selectedReservList = myPageView.loadApprovedList(); // 예약완료된 세이브파일 불러옴
         Map<String, TimeList> timeListMap = date.callMap(); // 날짜를 map에 저장
         TimeList timeList = timeListMap.get(inputDay); // 해당 날짜의 시간대 불러오기
+        System.out.println(timeList);
         for (SelectedReserv selectedReserv : selectedReservList) {
-            if (selectedReserv.getUserDate().equals(inputDay) ){ // 해당 날짜랑 예약완료된 날짜랑 비교 후
+            if (selectedReserv.getUserDate().equals(inputDay)) { // 해당 날짜랑 예약완료된 날짜랑 비교 후
                 timeList.dateList.remove(selectedReserv.getUserTimeIndex()); // 맞으면 해당 날짜의 시간대 삭제
                 System.out.println("삭제");
             }
@@ -148,19 +150,20 @@ public class BookingView {
     }
 
 
-    public int ageDisCount(){
-        int userAge = 2023 - Integer.parseInt(myInfo.getUserAge().substring(0,4));
+    public int ageDisCount() {
+        int userAge = 2023 - Integer.parseInt(myInfo.getUserAge().substring(0, 4));
         if (userAge < 25) return 10;
         return 0;
     }
-    public int placeDisCount(){
+
+    public int placeDisCount() {
         if (myInfo.getUserArea().equals(reserv.getUserPlace())) return 10;
         return 0;
     }
 
-    public void showTotalPrice(int allTotal){
+    public void showTotalPrice(int allTotal) {
         int academyDiscount = 0;
-        switch (input("중앙정보처리학원을 다니십니까? [y/n] ").toUpperCase().charAt(0)){
+        switch (input("중앙정보처리학원을 다니십니까? [y/n] ").toUpperCase().charAt(0)) {
             case 'Y':
                 System.out.println("추가 20%할인 적용되었습니다!");
                 academyDiscount = (allTotal / 10) * 2;
@@ -178,8 +181,8 @@ public class BookingView {
 
         int total = allTotal - (ageDiscount + placeDiscount + academyDiscount);
 
-        System.out.println("학생 할인 : "+ageDisCount() + "%");
-        System.out.println("지역 할인 : "+placeDisCount()+ "%");
+        System.out.println("학생 할인 : " + ageDisCount() + "%");
+        System.out.println("지역 할인 : " + placeDisCount() + "%");
 
         reserv.setUserTotal(total);
         System.out.printf("결제할 총 금액 : %d원\n", reserv.getUserTotal());
@@ -197,21 +200,21 @@ public class BookingView {
                 allTotal = soccerRentList.rentTotal(); // 대여한 물품들의 가격 계산 메서드
                 System.out.println("구장 비용은 100,000원입니다!");
                 System.out.println(soccerRentList.allInfo());
-                System.out.printf("대여한 물품의 총 가격 : %d\n",soccerRentList.rentCount());
+                System.out.printf("대여한 물품의 총 가격 : %d\n", soccerRentList.rentCount());
                 break;
             case "농구장":
 //                count = basketRentList.rentCount(); // 대여한 물품의 개수 출력 메서드
                 allTotal = basketRentList.rentTotal(); // 대여한 물품들의 가격 계산 메서드
                 System.out.println("구장 비용은 100,000원입니다!");
                 System.out.println(basketRentList.allInfo());
-                System.out.printf("대여한 물품의 총 가격 : %d\n",basketRentList.rentCount());
+                System.out.printf("대여한 물품의 총 가격 : %d\n", basketRentList.rentCount());
                 break;
             case "수영장":
 //                count = swimRentList.rentCount(); // 대여한 물품의 개수 출력 메서드
                 allTotal = swimRentList.rentTotal(); // 대여한 물품들의 가격 계산 메서드
                 System.out.println("구장 비용은 20,000원입니다!");
                 System.out.println(swimRentList.allInfo());
-                System.out.printf("대여한 물품의 총 가격 : %d\n",swimRentList.rentCount());
+                System.out.printf("대여한 물품의 총 가격 : %d\n", swimRentList.rentCount());
                 break;
         }
         showTotalPrice(allTotal);
@@ -276,13 +279,14 @@ public class BookingView {
 
 
     public static void loginInfo(MemberShipUserInfo userInfo) {
-        myInfo=userInfo;
+        myInfo = userInfo;
     }
 
     public void makeSaveFile() { // 예약 리스트를 save파일에 저장하는 메서드
         List<SelectedReserv> reservationFile = new ArrayList<>();
-        if(adminRepository.loadReservationFile() != null){
-            reservationFile = adminRepository.loadReservationFile();}
+        if (adminRepository.loadReservationFile() != null) {
+            reservationFile = adminRepository.loadReservationFile();
+        }
         try (FileOutputStream fos
                      = new FileOutputStream(
                 "BookingSystem/src/saveFile/reservationInfo.txt")) {
@@ -294,7 +298,7 @@ public class BookingView {
             oos.writeObject(reservationFile);
             System.out.println("성공");
             for (SelectedReserv selectedReserv1 : reservationFile) {
-                System.out.println(selectedReserv1+"\n");
+                System.out.println(selectedReserv1 + "\n");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

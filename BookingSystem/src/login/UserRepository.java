@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import static memberShipUserSystem.Utility.input;
 
 public class UserRepository {
-    public  List<MemberShipUserInfo> info;
+    public static List<MemberShipUserInfo> info;
     UserView uv;
     AdminView adminView;
     UserView userview;

@@ -143,15 +143,15 @@ public class MyPageView {
                 showMyInfo();
                 break;
             case "2":
-                System.out.println("새로운 거주지를 입력하세요.");
-                String newPlace = input(">> ");
+                System.out.println("새로운 거주지를 입력하세요.(1번~10번)");
                 showArea();
+//                String newPlace = input(">> ");
                 int areaNum = Integer.parseInt(Utility.input("\n# 번호로 입력하세요>> "));
                 String userArea = callListArea().get(areaNum - 1);
 
 
 
-                myInfo.setUserArea(newPlace);
+                myInfo.setUserArea(userArea );
 //                System.out.println("========수정후 객체정보======");
 //                System.out.println(myInfo + "/n");
 //                System.out.println("===========================");
