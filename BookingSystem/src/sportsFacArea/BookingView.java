@@ -237,21 +237,21 @@ public class BookingView {
                 allTotal = soccerRentList.rentTotal(); // 대여한 물품들의 가격 계산 메서드
                 System.out.println("구장 비용은 100,000원입니다!");
                 System.out.println(soccerRentList.allInfo());
-                System.out.printf("대여한 물품의 총 가격 : %d\n", soccerRentList.rentCount());
+                System.out.printf("대여한 물품의 총 가격 : %d원\n", soccerRentList.rentCount());
                 break;
             case "농구장":
 //                count = basketRentList.rentCount(); // 대여한 물품의 개수 출력 메서드
                 allTotal = basketRentList.rentTotal(); // 대여한 물품들의 가격 계산 메서드
                 System.out.println("구장 비용은 100,000원입니다!");
                 System.out.println(basketRentList.allInfo());
-                System.out.printf("대여한 물품의 총 가격 : %d\n", basketRentList.rentCount());
+                System.out.printf("대여한 물품의 총 가격 : %d원\n", basketRentList.rentCount());
                 break;
             case "수영장":
 //                count = swimRentList.rentCount(); // 대여한 물품의 개수 출력 메서드
                 allTotal = swimRentList.rentTotal(); // 대여한 물품들의 가격 계산 메서드
                 System.out.println("구장 비용은 20,000원입니다!");
                 System.out.println(swimRentList.allInfo());
-                System.out.printf("대여한 물품의 총 가격 : %d\n", swimRentList.rentCount());
+                System.out.printf("대여한 물품의 총 가격 : %d원\n", swimRentList.rentCount());
                 break;
         }
         showTotalPrice(allTotal);

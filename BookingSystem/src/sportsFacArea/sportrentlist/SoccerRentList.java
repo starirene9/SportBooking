@@ -41,7 +41,7 @@ public class SoccerRentList {
     }
 
     public String allInfo(){
-        return String.format("대여한 유니폼의 개수 : %d [개당 1000원]\n대여한 축구화의 개수 %d [개당 2000원]\n대여한 축구공의 개수 %d [개당 1000원]\n",getSoccerUniform(),getSoccerShoes(),getSoccerBall());
+        return String.format("대여한 형광 조끼의 개수 : %d [개당 1000원]\n대여한 축구화의 개수 %d [개당 2000원]\n대여한 축구공의 개수 %d [개당 1000원]\n",getSoccerUniform(),getSoccerShoes(),getSoccerBall());
     }
     public int rentTotal(){
         return getSoccerUniform() * 1000 + getSoccerShoes() * 2000 + getSoccerBall() * 1000 + 100000;
