@@ -40,7 +40,7 @@ public class UserRepository {
                 info.add(userObj);
 
             }
-            System.out.println(info + "불러옴");
+//            System.out.println(info + "불러옴");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -67,7 +67,7 @@ public class UserRepository {
         try {
 
             userInfo = info.stream().filter(obj -> obj.getUserId().equals(inputId)).collect(Collectors.toList()).get(0);
-
+            System.out.println("");
             System.out.println("======로그인 하는 사람의 계정====");
             System.out.println(userInfo);
             System.out.println("===========================\n");
@@ -79,7 +79,6 @@ public class UserRepository {
                 adminView = new AdminView();
                 adminView.adminMenu();
             } else if (userInfo.getUserId().equals(inputId) && userInfo.getUserPwd().equals(inputPwd)) {
-                System.out.println("");
                 System.out.printf("[%s]님 환영합니다!!!\n", userInfo.getUserName());
                 // 로그인한 계정의 정보를 객체화
                 userInfo = new MemberShipUserInfo(userInfo.getUserId(), userInfo.getUserPwd(), userInfo.getUserName(), userInfo.getUserArea(), userInfo.getUserAge(), userInfo.getUserPhoneNum());

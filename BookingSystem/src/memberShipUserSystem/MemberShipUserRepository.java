@@ -1,6 +1,6 @@
 package memberShipUserSystem;
 
-import sportsFacArea.SelectedReserv;
+
 
 import java.io.*;
 import java.util.ArrayList;
@@ -123,10 +123,11 @@ public class MemberShipUserRepository implements Serializable {
 
     // 수정후 객체를 userInfo 에 추가하는 기능
     public void newLoad(MemberShipUserInfo myInfo) {
+        loadMemberShipFile();
         userInfo.add(myInfo);
-        for (MemberShipUserInfo memberShipUserInfo : userInfo) {
-            System.out.println(memberShipUserInfo);
-        }
+//        for (MemberShipUserInfo memberShipUserInfo : userInfo) {
+//            System.out.println(memberShipUserInfo);
+//        }
 
         makeSaveFile();
     }
@@ -136,6 +137,8 @@ public class MemberShipUserRepository implements Serializable {
      * @return true : 중복, false: 중복되지않는다.
      */
     boolean isDuplicate(String userId) {
+       loadMemberShipFile();
+//        System.out.println(userInfo);
         for (MemberShipUserInfo info : userInfo) {
             if (info.getUserId().equals(userId))
                 return true;
