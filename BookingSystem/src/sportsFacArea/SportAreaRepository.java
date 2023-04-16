@@ -40,7 +40,7 @@ public class SportAreaRepository {
     public void showArea() {
         for (int i = 0; i < 5; i++) {
             System.out.printf(" %d. %s\t\t", i + 1, areaList.get(i));
-            System.out.printf(" %d. %s\n", i + 6, areaList.get(i + 4));
+            System.out.printf(" %d. %s\n", i + 6, areaList.get(i + 5));
         }
     }
 

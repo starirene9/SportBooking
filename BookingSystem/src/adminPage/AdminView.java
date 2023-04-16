@@ -11,7 +11,7 @@ public class AdminView {
 
 
     public void adminMenu() {
-        System.out.println("===========Admin 계정=============");
+        System.out.println("===========[Admin 계정]=============");
         System.out.println("#1. 시설예약 목록");
         System.out.println("#0. 로그아웃");
         aprv=new AdminPreReservedView();

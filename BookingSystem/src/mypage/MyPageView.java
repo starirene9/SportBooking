@@ -209,11 +209,13 @@ public class MyPageView {
         System.out.println("\n# 예약 내역 보기를 선택하셨습니다.");
 //        stop();
         //예약 내역 불러오기
-        System.out.printf("=====[%s]님의 예약 완료 내역=====\n", myInfo.getUserName());
+        System.out.printf("=======[%s]님의 예약 완료 내역=======\n", myInfo.getUserName());
         List<SelectedReserv> approvedList = loadApprovedList();
+//        System.out.println(approvedList);
         for (SelectedReserv app : approvedList) {
             if(app.getUserName().equals(myInfo.getUserName())){
                 System.out.println(app.info());
+
             }
         }
 
@@ -240,14 +242,14 @@ public class MyPageView {
             userInfo = (List<SelectedReserv>)ois.readObject();
 
         } catch (FileNotFoundException ex) {
-            System.out.println("파일이 존재하지 않습니다.");
-            ex.printStackTrace();
+//            System.out.println("파일이 존재하지 않습니다.");
+//            ex.printStackTrace();
         } catch (IOException e) {
-            System.out.println("에러1");
-            e.printStackTrace();
+//            System.out.println("에러1");
+//            e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            System.out.println("에러2");
-            e.printStackTrace();
+//            System.out.println("에러2");
+//            e.printStackTrace();
         }
         return userInfo;
     }
@@ -269,7 +271,11 @@ public class MyPageView {
                 break;
             case 'n':
             case 'ㅜ':
+                seeMyBooking();
                 break;
+            default:
+                System.out.println("올바른 값을 입력해주세요");
+                myPageExit();
         }
 
     }

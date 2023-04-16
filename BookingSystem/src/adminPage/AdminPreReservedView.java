@@ -37,14 +37,14 @@ public class AdminPreReservedView {
                 "BookingSystem/src/saveFile/approvedList.txt")) {
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(selectedList);
-            System.out.println("성공");
-            for (SelectedReserv selectedReserv1 : selectedList) {
-                System.out.println(selectedReserv1 + "\n");
-            }
+//            System.out.println("성공");
+//            for (SelectedReserv selectedReserv1 : selectedList) {
+//                System.out.println(selectedReserv1 + "\n");
+//            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (RuntimeException e) {
-            System.out.println("오류");
+//            System.out.println("오류");
         }
     }
 
@@ -62,14 +62,14 @@ public class AdminPreReservedView {
             selectedReservList = (List<SelectedReserv>)ois.readObject();
 
         } catch (FileNotFoundException ex) {
-            System.out.println("파일이 존재하지 않습니다.");
-            ex.printStackTrace();
+//            System.out.println("파일이 존재하지 않습니다.");
+//            ex.printStackTrace();
         } catch (IOException e) {
-            System.out.println("에러1");
-            e.printStackTrace();
+//            System.out.println("에러1");
+//            e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            System.out.println("에러2");
-            e.printStackTrace();
+//            System.out.println("에러2");
+//            e.printStackTrace();
         }
         return selectedReservList;
     }

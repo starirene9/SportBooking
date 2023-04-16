@@ -42,11 +42,11 @@ public class UserRepository {
             }
 //            System.out.println(info + "불러옴");
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }finally {
             return info;
         }
@@ -68,9 +68,9 @@ public class UserRepository {
 
             userInfo = info.stream().filter(obj -> obj.getUserId().equals(inputId)).collect(Collectors.toList()).get(0);
             System.out.println("");
-            System.out.println("======로그인 하는 사람의 계정====");
-            System.out.println(userInfo);
-            System.out.println("===========================\n");
+//            System.out.println("======로그인 하는 사람의 계정====");
+//            System.out.println(userInfo);
+//            System.out.println("===========================\n");
 
             uv = new UserView();
             if (userInfo.getUserId().equals("admin") && userInfo.getUserPwd().equals("admin")) {
@@ -99,12 +99,12 @@ public class UserRepository {
                 mypage.start();
 
             } else {
-                System.out.println("아이디 비밀번호를 다시 입력하세요");
+                System.out.println("존재하는 회원정보가 없습니다.\n");
                 // 로그인 실패시 다시 로그인 화면을 띄어주는 기능
                 uv.loginStart();
             }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("존재하는 회원정보가 없습니다.");
+            System.out.println("존재하는 회원정보가 없습니다.\n");
             whileloop:
             while (true) {
                 String back = input("처음화면으로 돌아가시겠습니까?[Y/N]");

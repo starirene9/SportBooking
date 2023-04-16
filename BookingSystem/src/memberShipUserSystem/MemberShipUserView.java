@@ -79,7 +79,7 @@ public class MemberShipUserView {
         System.out.println("거주지를 입력하세요");
         showArea();
 //        System.out.println("강남구 // 강동구 // 강서구 // 광진구 // 구로구 // 동대문구 // 동작구 //\n해당 구에 거주하시는 분은 혜택을 받으실수있습니다.");
-        int areaNum = Integer.parseInt(input("\n# 번호로 입력하세요>> "));
+        int areaNum = Integer.parseInt(input("\n# 번호를 입력하세요 >> "));
         String userArea = callListArea().get(areaNum - 1);
         System.out.println(userArea);
 

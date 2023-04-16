@@ -24,13 +24,13 @@ public class AdminRepository {
             userInfo = (List<SelectedReserv>) ois.readObject();
 
         } catch (FileNotFoundException ex) {
-            System.out.println("파일이 존재하지 않습니다.");
+//            System.out.println("파일이 존재하지 않습니다.");
         } catch (EOFException e){
             return userInfo;
         } catch (IOException e) {
-            System.out.println("에러1");
+//            System.out.println("에러1");
         } catch (ClassNotFoundException e) {
-            System.out.println("에러2");
+//            System.out.println("에러2");
         }
         return userInfo;
     }

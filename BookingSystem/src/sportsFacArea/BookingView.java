@@ -333,15 +333,15 @@ public class BookingView {
             reservationFile.add(selectedReserv);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(reservationFile);
-            System.out.println("성공");
-            for (SelectedReserv selectedReserv1 : reservationFile) {
-                System.out.println(selectedReserv1 + "\n");
-            }
+//            System.out.println("성공");
+//            for (SelectedReserv selectedReserv1 : reservationFile) {
+//                System.out.println(selectedReserv1 + "\n");
+//            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (RuntimeException e) {
-            e.printStackTrace();
-            System.out.println("오류");
+//            e.printStackTrace();
+//            System.out.println("오류");
         }
     }
 

@@ -25,15 +25,15 @@ public class MemberShipUserRepository implements Serializable {
 
 
         System.out.println(upDateInfo);
-        System.out.println("2222");
+//        System.out.println("2222");
         // id가 중복되는 객체를 지운다.
         userInfo.remove(upDateInfo);
-        System.out.println("객체를 지운 후 ");
-        System.out.println(userInfo);
+//        System.out.println("객체를 지운 후 ");
+//        System.out.println(userInfo);
         // 그리고 이객체를넣는다.
         userInfo.add(myInfo);
-        System.out.println("객체를 넣고난 후");
-        System.out.println(userInfo);
+//        System.out.println("객체를 넣고난 후");
+//        System.out.println(userInfo);
         // 그리고 세이브
 
         // 로드하여 확인
@@ -73,14 +73,14 @@ public class MemberShipUserRepository implements Serializable {
             userInfo = (List<MemberShipUserInfo>)ois.readObject();
 
         } catch (FileNotFoundException ex) {
-            System.out.println("파일이 존재하지 않습니다.");
-            ex.printStackTrace();
+//            System.out.println("파일이 존재하지 않습니다.");
+//            ex.printStackTrace();
         } catch (IOException e) {
-            System.out.println("에러1");
-            e.printStackTrace();
+//            System.out.println("에러1");
+//            e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            System.out.println("에러2");
-            e.printStackTrace();
+//            System.out.println("에러2");
+//            e.printStackTrace();
         }
         return userInfo;
     }
@@ -108,11 +108,11 @@ public class MemberShipUserRepository implements Serializable {
 //                userInfo.remove(checkInfo);
 //            }
 //        }
-        System.out.println("=============지운후 리스트의 정보============");
-        for (MemberShipUserInfo memberShipUserInfo : userInfo) {
-            System.out.println(memberShipUserInfo + "\n");
-        }
-        System.out.println("==========================================");
+//        System.out.println("=============지운후 리스트의 정보============");
+//        for (MemberShipUserInfo memberShipUserInfo : userInfo) {
+//            System.out.println(memberShipUserInfo + "\n");
+//        }
+//        System.out.println("==========================================");
         makeSaveFile();
 
     }
@@ -163,11 +163,11 @@ public class MemberShipUserRepository implements Serializable {
 
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(userInfo);
-            System.out.println("=============save 후 리스트의 정보============");
-            for (MemberShipUserInfo memberShipUserInfo : userInfo) {
-                System.out.println(memberShipUserInfo + "\n");
-            }
-            System.out.println("==========================================");
+//            System.out.println("=============save 후 리스트의 정보============");
+//            for (MemberShipUserInfo memberShipUserInfo : userInfo) {
+//                System.out.println(memberShipUserInfo + "\n");
+//            }
+//            System.out.println("==========================================");
 
 
         } catch (IOException e) {
