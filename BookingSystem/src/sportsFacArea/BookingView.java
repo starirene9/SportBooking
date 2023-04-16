@@ -116,24 +116,28 @@ public class BookingView {
     }
 
     public void denyDate(String inputDay) { // 예약 대기,완료된 날짜는 선택 못하게 하는 메서드
-        List<SelectedReserv> selectedReservList = myPageView.loadApprovedList(); // 예약완료된 세이브파일 불러옴
-        for (SelectedReserv selectedReserv : selectedReservList) {
-            if (selectedReserv.getUserName().equals(myInfo.getUserName())
-                    && selectedReserv.getUserPlace().equals(reserv.getUserPlace())
-                    && selectedReserv.getUserSport().equals(reserv.getUserSport())
-                    && selectedReserv.getUserDate().equals(inputDay)) {
-                System.out.printf("\n%s님은 이미 5월 %s일을 예약하셨습니다!\n\n", myInfo.getUserName(), inputDay);
-                bookingFac(); // 다시 예약 날짜 정하기
-            }
-        }
-        List<SelectedReserv> reservationFile = adminRepository.loadReservationFile(); // 예약 대기 세이브파일
-        for (SelectedReserv selectedReserv : reservationFile) {
-            if (selectedReserv.getUserName().equals(myInfo.getUserName())
-                    && selectedReserv.getUserPlace().equals(reserv.getUserPlace())
-                    && selectedReserv.getUserSport().equals(reserv.getUserSport())
-                    && selectedReserv.getUserDate().equals(inputDay)) {
-                System.out.printf("\n%s님은 이미 5월 %s일을 예약하셨습니다!\n\n", myInfo.getUserName(), inputDay);
-                bookingFac();// 다시 예약 날짜 정하기
+       if(myPageView.loadApprovedList()!=null) {
+           List<SelectedReserv> selectedReservList = myPageView.loadApprovedList(); // 예약완료된 세이브파일 불러옴
+           for (SelectedReserv selectedReserv : selectedReservList) {
+               if (selectedReserv.getUserName().equals(myInfo.getUserName())
+                       && selectedReserv.getUserPlace().equals(reserv.getUserPlace())
+                       && selectedReserv.getUserSport().equals(reserv.getUserSport())
+                       && selectedReserv.getUserDate().equals(inputDay)) {
+                   System.out.printf("\n%s님은 이미 5월 %s일을 예약하셨습니다!\n\n", myInfo.getUserName(), inputDay);
+                   bookingFac(); // 다시 예약 날짜 정하기
+               }
+           }
+       }
+        if(adminRepository.loadReservationFile()!=null) {
+            List<SelectedReserv> reservationFile = adminRepository.loadReservationFile(); // 예약 대기 세이브파일
+            for (SelectedReserv selectedReserv : reservationFile) {
+                if (selectedReserv.getUserName().equals(myInfo.getUserName())
+                        && selectedReserv.getUserPlace().equals(reserv.getUserPlace())
+                        && selectedReserv.getUserSport().equals(reserv.getUserSport())
+                        && selectedReserv.getUserDate().equals(inputDay)) {
+                    System.out.printf("\n%s님은 이미 5월 %s일을 예약하셨습니다!\n\n", myInfo.getUserName(), inputDay);
+                    bookingFac();// 다시 예약 날짜 정하기
+                }
             }
         }
 
