@@ -57,8 +57,7 @@ public class BookingView {
                 reserv.setUserPlace(repository.callListArea().get(areaNum - 1));
             } catch (NumberFormatException e) {
                 System.out.println("잘못된 입력입니다");
-                areaStart();
-//                e.printStackTrace();
+                areaStart(); // 다시 지역정하기
             }
             sportStart();
         }
@@ -96,14 +95,15 @@ public class BookingView {
         try {
             if (Integer.parseInt(inputDay) > 31 || Integer.parseInt(inputDay) < 1) {
                 System.out.println("다시 입력하세요");
-                bookingFac();
+                bookingFac(); // 다시 예약 날짜 정하기
             }
         } catch (NumberFormatException e) {
             System.out.println("잘못된 입력입니다");
             bookingFac();
         }
+        denyDate(inputDay);
 
-        int inputTime = timeInterval(inputDay);
+        int inputTime = timeInterval(inputDay); // 예약 시간대 정하기 메서드
 
         boolean isRent = rentStuff();
         boolean isParking = parkCoupon();
@@ -112,9 +112,30 @@ public class BookingView {
 
         insertWaitList(inputDay, inputTime, isRent, isParking); // 예약 정보들 리스트에 담아두는 메서드
         reservationInfo(); // 예약 정보 출력
-//        System.out.println(reserv); // 테스트용 예약 대기리스트
         confirmRes(); // 마지막으로 예약 할 것인지 물어보는 메서드
+    }
 
+    public void denyDate(String inputDay) { // 예약 대기,완료된 날짜는 선택 못하게 하는 메서드
+        List<SelectedReserv> selectedReservList = myPageView.loadApprovedList(); // 예약완료된 세이브파일 불러옴
+        for (SelectedReserv selectedReserv : selectedReservList) {
+            if (selectedReserv.getUserName().equals(myInfo.getUserName())
+                    && selectedReserv.getUserPlace().equals(reserv.getUserPlace())
+                    && selectedReserv.getUserSport().equals(reserv.getUserSport())
+                    && selectedReserv.getUserDate().equals(inputDay)) {
+                System.out.printf("\n%s님은 이미 5월 %s일을 예약하셨습니다!\n\n", myInfo.getUserName(), inputDay);
+                bookingFac(); // 다시 예약 날짜 정하기
+            }
+        }
+        List<SelectedReserv> reservationFile = adminRepository.loadReservationFile(); // 예약 대기 세이브파일
+        for (SelectedReserv selectedReserv : reservationFile) {
+            if (selectedReserv.getUserName().equals(myInfo.getUserName())
+                    && selectedReserv.getUserPlace().equals(reserv.getUserPlace())
+                    && selectedReserv.getUserSport().equals(reserv.getUserSport())
+                    && selectedReserv.getUserDate().equals(inputDay)) {
+                System.out.printf("\n%s님은 이미 5월 %s일을 예약하셨습니다!\n\n", myInfo.getUserName(), inputDay);
+                bookingFac();// 다시 예약 날짜 정하기
+            }
+        }
 
     }
 
@@ -131,37 +152,49 @@ public class BookingView {
         List<SelectedReserv> selectedReservList = myPageView.loadApprovedList(); // 예약완료된 세이브파일 불러옴
         Map<String, TimeList> timeListMap = date.callMap(); // 날짜를 map에 저장
         TimeList timeList = timeListMap.get(inputDay); // 해당 날짜의 시간대 불러오기
-        System.out.println(timeList);
-        for (SelectedReserv selectedReserv : selectedReservList) {
-            if (selectedReserv.getUserDate().equals(inputDay)) { // 해당 날짜랑 예약완료된 날짜랑 비교 후
-                timeList.dateList.remove(selectedReserv.getUserTimeIndex()); // 맞으면 해당 날짜의 시간대 삭제
-                System.out.println("삭제");
-            }
-        }
         timeList.inform(); // 예약 가능한 시간대 출력
         int inputTime = 0;
         try {
             inputTime = Integer.parseInt(input("\n# 예약할 시간을 번호로 입력 >> "));
+            if (inputTime > 6 || inputTime < 1){
+                System.out.println("잘못된 입력입니다");
+                timeInterval(inputDay); // 다시 예약 시간 입력받기
+            }
+            denyTime(inputTime, inputDay);
         } catch (NumberFormatException e) {
             System.out.println("잘못된 입력입니다");
-            timeInterval(inputDay);
+            timeInterval(inputDay); // 다시 예약 시간 입력받기
         }
         return inputTime;
     }
 
+    public void denyTime(int inputTime, String inputDay) { // 예약 완료된 시간대는 다시 입력받게하는 메서드
+        List<SelectedReserv> selectedReservList = myPageView.loadApprovedList(); // 예약완료된 세이브파일 불러옴
+        for (SelectedReserv selectedReserv : selectedReservList) {
+            if (selectedReserv.getUserPlace().equals(reserv.getUserPlace())
+                    && selectedReserv.getUserSport().equals(reserv.getUserSport())
+                    && selectedReserv.getUserDate().equals(inputDay)
+                && selectedReserv.getUserTimeIndex()== inputTime) {
+                System.out.printf("이미 5월 %s일 %s 시간대는 예약완료상태입니다!\n\n", inputDay,new TimeList().dateList.get(inputTime-1));
+                timeInterval(inputDay); // 다시 예약 시간대 입력받기
+            }
+        }
 
-    public int ageDisCount() {
+    }
+
+
+    public int ageDisCount() { // 학생 할인 기준
         int userAge = 2023 - Integer.parseInt(myInfo.getUserAge().substring(0, 4));
         if (userAge < 25) return 10;
         return 0;
     }
 
-    public int placeDisCount() {
+    public int placeDisCount() { // 지역 할인 기준
         if (myInfo.getUserArea().equals(reserv.getUserPlace())) return 10;
         return 0;
     }
 
-    public void showTotalPrice(int allTotal) {
+    public void showTotalPrice(int allTotal) { // 모든 할인 계산하는 메서드
         int academyDiscount = 0;
         switch (input("중앙정보처리학원을 다니십니까? [y/n] ").toUpperCase().charAt(0)) {
             case 'Y':
@@ -184,7 +217,7 @@ public class BookingView {
         System.out.println("학생 할인 : " + ageDisCount() + "%");
         System.out.println("지역 할인 : " + placeDisCount() + "%");
 
-        reserv.setUserTotal(total);
+        reserv.setUserTotal(total); // 총 금액 회원 정보로 넘기기
         System.out.printf("결제할 총 금액 : %d원\n", reserv.getUserTotal());
     }
 

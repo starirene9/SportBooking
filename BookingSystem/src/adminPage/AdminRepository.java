@@ -20,7 +20,7 @@ public class AdminRepository {
 //             userInfo = (List<SelectedReserv>)ois.readObject();
 //            ;
 //            System.out.println(userInfo);
-            System.out.println("여기");
+//            System.out.println("여기");
             userInfo = (List<SelectedReserv>) ois.readObject();
 
         } catch (FileNotFoundException ex) {
