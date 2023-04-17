@@ -1,48 +1,23 @@
 package sportsFacArea;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SportsFacList {
-    private String soccerPac;
-    private String basketPac;
-    private String swimmingPac;
 
-    public SportsFacList() {}
+    static Map<String, Map<String,TimeList>> sportList;
+    static DateList dateList;
 
-    public SportsFacList(String soccerPac, String basketPac, String swimmingPac) {
-        this.soccerPac = soccerPac;
-        this.basketPac = basketPac;
-        this.swimmingPac = swimmingPac;
+    static {
+        dateList = new DateList();
+        sportList = new HashMap<>();
+        sportList.put("축구장",dateList.callMap());
+        sportList.put("농구장",dateList.callMap());
+        sportList.put("수영장",dateList.callMap());
     }
 
-    public String getSoccerPac() {
-        return soccerPac;
+    public Map<String,Map<String,TimeList>> callMapSport(){
+        return sportList;
     }
 
-    public void setSoccerPac(String soccerPac) {
-        this.soccerPac = soccerPac;
-    }
-
-    public String getBasketPac() {
-        return basketPac;
-    }
-
-    public void setBasketPac(String basketPac) {
-        this.basketPac = basketPac;
-    }
-
-    public String getSwimmingPac() {
-        return swimmingPac;
-    }
-
-    public void setSwimmingPac(String swimmingPac) {
-        this.swimmingPac = swimmingPac;
-    }
-
-    @Override
-    public String toString() {
-        return "SportsFacilityList{" +
-                "soccerPac='" + soccerPac + '\'' +
-                ", basketPac='" + basketPac + '\'' +
-                ", swimmingPac='" + swimmingPac + '\'' +
-                '}';
-    }
 }
