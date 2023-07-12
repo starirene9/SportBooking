@@ -1,10 +1,10 @@
 <img width="947" alt="image" src="https://github.com/starirene9/SportBooking/assets/126743003/15922c2b-7c2f-4f4f-adf6-3e699aebf685">
 
 
+[Blue Illustrated Sport Activity Presentation (2).pdf](https://github.com/starirene9/SportBooking/files/12026024/Blue.Illustrated.Sport.Activity.Presentation.2.pdf)
+
 # 1. 개요 
 - BookingSystem(체육시설 예약 시스템)
-[Blue Illustrated Sport Activity Presentation (2).pdf](https://github.com/starirene9/SportBooking/files/12026015/Blue.Illustrated.Sport.Activity.Presentation.2.pdf)
-
 
 # 2. 시스템 흐름 
 - 회원가입-> 로그인-> 지역선택 -> 경기장 선택-> 경기장별 이벤트 선택
