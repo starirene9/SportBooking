@@ -1,15 +1,15 @@
-<img width="947" alt="image" src="https://github.com/starirene9/SportBooking/assets/126743003/15922c2b-7c2f-4f4f-adf6-3e699aebf685">
 
-
-[Blue Illustrated Sport Activity Presentation (2).pdf](https://github.com/starirene9/SportBooking/files/12026024/Blue.Illustrated.Sport.Activity.Presentation.2.pdf)
 
 # 1. 개요 
+<img width="921" alt="스크린샷 2023-07-12 오후 6 08 31" src="https://github.com/starirene9/SportBooking/assets/126743003/098c7cd4-d770-4300-b732-3726c46bc3dc">
 - BookingSystem(체육시설 예약 시스템)
 
-# 2. 시스템 흐름 
+# 2. 시스템 흐름![Uploading 스크린샷 2023-07-12 오후 6.07.08.png…]()
+ <img width="905" alt="스크린샷 2023-07-12 오후 6 07 19" src="https://github.com/starirene9/SportBooking/assets/126743003/2b60de9b-70e0-4320-b169-a20662000e45">
 - 회원가입-> 로그인-> 지역선택 -> 경기장 선택-> 경기장별 이벤트 선택
 
 # 3. 시스템 세부 사항
+<img width="905" alt="스크린샷 2023-07-12 오후 6 07 19" src="https://github.com/starirene9/SportBooking/assets/126743003/9d40ff48-36b2-4b7f-86ca-8acdccfd9f60">
 
 - ## 3-1 회원가입 여부 확인
 
