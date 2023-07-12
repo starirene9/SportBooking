@@ -5,6 +5,8 @@
 - BookingSystem(체육시설 예약 시스템)
 <img width="921" alt="스크린샷 2023-07-12 오후 6 08 31" src="https://github.com/starirene9/SportBooking/assets/126743003/098c7cd4-d770-4300-b732-3726c46bc3dc">
 <img width="927" alt="스크린샷 2023-07-12 오후 6 07 08" src="https://github.com/starirene9/SportBooking/assets/126743003/82f4f9b3-0245-4931-99e5-357e8701bcb4">
+
+
 # 2. 시스템 흐름![Uploading 스크린샷 2023-07-12 오후 6.07.08.png…]()
 - 회원가입-> 로그인-> 지역선택 -> 경기장 선택-> 경기장별 이벤트 선택
 
